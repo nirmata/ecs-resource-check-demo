@@ -1,0 +1,275 @@
+# ECS Cluster checks
+---
+apiVersion: wgpolicyk8s.io/v1alpha2
+kind: PolicyReport
+metadata:
+  name: ecs-cluster-require-fargate
+  namespace: norvatis
+results:
+- category: Norvatis ECS Inventory
+  message: validation rule 'required-container-fargate' passed.
+  policy: required-container-fargate
+  resources:
+  - apiVersion: v1
+    kind: ECS Cluster
+    name: arn:aws:ecs:us-west-1:844333597536:cluster/boris-norvatis-ecs
+    namespace: norvatis
+  result: pass
+  rule: required-container-fargate
+  scored: false
+  severity: low
+  source: kyverno
+  timestamp:
+    nanos: 0
+    seconds: 1704806179
+- category: Norvatis ECS Inventory
+  message: ECS Cluster use of Fargate or Fargate Spot instances should be used
+  policy: required-container-fargate
+  resources:
+  - apiVersion: v1
+    kind: ECS Cluster
+    name: arn:aws:ecs:us-west-1:844333597536:cluster/ecs-test
+    namespace: norvatis
+  result: fail
+  rule: required-container-fargate
+  scored: false
+  severity: low
+  source: kyverno
+  timestamp:
+    nanos: 0
+    seconds: 1704806179
+summary:
+  error: 0
+  fail: 1
+  pass: 1
+  skip: 0
+  warn: 0
+---
+apiVersion: wgpolicyk8s.io/v1alpha2
+kind: PolicyReport
+metadata:
+  name: ecs-cluster-require-container-insights
+  namespace: norvatis
+results:
+- category: Norvatis ECS Inventory
+  message: validation rule 'required-container-insights' passed.
+  policy: required-container-insights
+  resources:
+  - apiVersion: v1
+    kind: ECS Cluster
+    name: arn:aws:ecs:us-west-1:844333597536:cluster/ecs-test
+    namespace: norvatis
+  result: pass
+  rule: required-container-insights
+  scored: false
+  severity: medium
+  source: kyverno
+  timestamp:
+    nanos: 0
+    seconds: 1704806179
+- category: Norvatis ECS Inventory
+  message: ECS Cluster Container Insights should be enabled
+  policy: required-container-insights
+  resources:
+  - apiVersion: v1
+    kind: ECS Cluster
+    name: arn:aws:ecs:us-west-1:844333597536:cluster/boris-norvatis-ecs
+    namespace: norvatis
+  result: fail
+  rule: required-container-insights
+  scored: false
+  severity: medium
+  source: kyverno
+  timestamp:
+    nanos: 0
+    seconds: 1704806179
+summary:
+  error: 0
+  fail: 1
+  pass: 1
+  skip: 0
+  warn: 0
+
+# ECS Task checks
+---
+apiVersion: wgpolicyk8s.io/v1alpha2
+kind: PolicyReport
+metadata:
+  name: ecs-task-container-command
+  namespace: norvatis
+results:
+- category: Norvatis ECS Inventory
+  message: validation rule 'ecs-task-container-command' passed.
+  policy: ecs-task-container-command
+  resources:
+  - apiVersion: v1
+    kind: ECS Task
+    name: arn:aws:ecs:us-west-1:844333597536:task/boris-norvatis-ecs/8a0711703a3f49b99c3bbd549f394213
+    namespace: norvatis
+  result: pass
+  rule: ecs-task-container-command
+  scored: false
+  severity: low
+  source: kyverno
+  timestamp:
+    nanos: 0
+    seconds: 1704806179
+- category: Norvatis ECS Inventory
+  message: ECS Tasks does not allow overriding container 'command'
+  policy: ecs-task-container-command
+  resources:
+  - apiVersion: v1
+    kind: ECS Task
+    name: arn:aws:ecs:us-west-1:844333597536:task/boris-norvatis-ecs/1ead6c02ddc14b2db3b9a29813637074
+    namespace: norvatis
+  result: fail
+  rule: ecs-task-container-command
+  scored: false
+  severity: low
+  source: kyverno
+  timestamp:
+    nanos: 0
+    seconds: 1704806179
+summary:
+  error: 0
+  fail: 1
+  pass: 1
+  skip: 0
+  warn: 0
+---
+apiVersion: wgpolicyk8s.io/v1alpha2
+kind: PolicyReport
+metadata:
+  name: ecs-task-public-image
+  namespace: norvatis
+results:
+- category: Norvatis ECS Inventory
+  message: validation rule 'ecs-task-public-registry' passed.
+  policy: ecs-task-public-image
+  resources:
+  - apiVersion: v1
+    kind: ECS Task
+    name: arn:aws:ecs:us-west-1:844333597536:task/boris-norvatis-ecs/1ead6c02ddc14b2db3b9a29813637074
+    namespace: norvatis
+  result: pass
+  rule: ecs-task-public-registry
+  scored: false
+  severity: high
+  source: kyverno
+  timestamp:
+    nanos: 0
+    seconds: 1704806179
+- category: Norvatis ECS Inventory
+  message: ECS Tasks require the use of 'INTERNAL_REGISTRY'
+  policy: ecs-task-public-image
+  resources:
+  - apiVersion: v1
+    kind: ECS Task
+    name: arn:aws:ecs:us-west-1:844333597536:task/boris-norvatis-ecs/8a0711703a3f49b99c3bbd549f394213
+    namespace: norvatis
+  result: fail
+  rule: ecs-task-public-registry
+  scored: false
+  severity: high
+  source: kyverno
+  timestamp:
+    nanos: 0
+    seconds: 1704806179
+summary:
+  error: 0
+  fail: 1
+  pass: 1
+  skip: 0
+  warn: 0
+
+# ECS Task Definition checks
+---
+apiVersion: wgpolicyk8s.io/v1alpha2
+kind: PolicyReport
+metadata:
+  name: ecs-task-definition-public-image
+  namespace: norvatis
+results:
+- category: Norvatis ECS Inventory
+  message: validation rule 'ecs-task-definition-public-image' passed.
+  policy: ecs-task-definition-public-image
+  resources:
+  - apiVersion: v1
+    kind: ECS Task Definition
+    name: arn:aws:ecs:us-west-1:844333597536:task-definition/sinatra-hi:1
+    namespace: norvatis
+  result: pass
+  rule: ecs-task-definition-public-registry
+  scored: false
+  severity: high
+  source: kyverno
+  timestamp:
+    nanos: 0
+    seconds: 1704806179
+- category: Norvatis ECS Inventory
+  message: ECS Task Definitions require the use of 'INTERNAL_REGISTRY'
+  policy: ecs-task-definition-public-image
+  resources:
+  - apiVersion: v1
+    kind: ECS Task Definition
+    name: arn:aws:ecs:us-west-1:844333597536:task-definition/nginx:1
+    namespace: norvatis
+  result: fail
+  rule: ecs-task-definition-public-registry
+  scored: false
+  severity: high
+  source: kyverno
+  timestamp:
+    nanos: 0
+    seconds: 1704806179
+summary:
+  error: 0
+  fail: 1
+  pass: 1
+  skip: 0
+  warn: 0
+---
+apiVersion: wgpolicyk8s.io/v1alpha2
+kind: PolicyReport
+metadata:
+  name: ecs-task-definition-ro-root-fs
+  namespace: norvatis
+results:
+- category: Norvatis ECS Inventory
+  message: validation rule 'ecs-task-definition-ro-root-fs' passed.
+  policy: ecs-task-definition-ro-root-fs
+  resources:
+  - apiVersion: v1
+    kind: ECS Task Definition
+    name: arn:aws:ecs:us-west-1:844333597536:task-definition/sinatra-hi:1
+    namespace: norvatis
+  result: pass
+  rule: ecs-task-definition-ro-root-fs
+  scored: false
+  severity: high
+  source: kyverno
+  timestamp:
+    nanos: 0
+    seconds: 1704806179
+- category: Norvatis ECS Inventory
+  message: ECS Task Definitions require the use of 'INTERNAL_REGISTRY'
+  policy: ecs-task-definition-ro-root-fs
+  resources:
+  - apiVersion: v1
+    kind: ECS Task Definition
+    name: arn:aws:ecs:us-west-1:844333597536:task-definition/nginx:1
+    namespace: norvatis
+  result: fail
+  rule: ecs-task-definition-ro-root-fs
+  scored: false
+  severity: high
+  source: kyverno
+  timestamp:
+    nanos: 0
+    seconds: 1704806179
+summary:
+  error: 0
+  fail: 1
+  pass: 1
+  skip: 0
+  warn: 0

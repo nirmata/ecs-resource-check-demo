@@ -1,0 +1,20 @@
+apiVersion: json.kyverno.io/v1alpha1
+kind: ValidatingPolicy
+metadata:
+  annotations:
+    description.policy.kyverno.io: This Policy ensures that ECS services do not allow container 'command' overrides
+    title.policy.kyverno.io: ECS Task does not allow container 'command' overrides
+  labels:
+    ecs.aws.tags.kyverno.io: ecs-task
+  name: ecs-task-container-command
+spec:
+  rules:
+    - name: ecs-task-container-command
+      assert:
+        any:
+          - message: ECS Task does not allow overriding container 'command' at task '{{taskArn}}'
+            check:
+              overrides:
+                ~.containerOverrides:
+                  # Make sure that 'command' is not set
+                  (!command): true

@@ -1,0 +1,19 @@
+apiVersion: json.kyverno.io/v1alpha1
+kind: ValidatingPolicy
+metadata:
+  annotations:
+    description.policy.kyverno.io: This Policy ensures that ECS clusters have container insights enabled.
+    title.policy.kyverno.io: ECS requires container insights
+  labels:
+    ecs.aws.tags.kyverno.io: ecs-cluster
+  name: required-container-insights
+spec:
+  rules:
+    - name: required-container-insights
+      assert:
+        all:
+          - message: Container insights should be enabled on ECS cluster '{{clusterName}}' at '{{clusterArn}}'
+            check:
+              ~.settings:
+                  name: containerInsights
+                  value: enabled
