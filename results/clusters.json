@@ -1,0 +1,40 @@
+{
+  "results": [
+    {
+      "policy": "ecs-cluster-require-fargate",
+      "rule": "required-container-fargate",
+      "result": "pass",
+      "message": ""
+    },
+    {
+      "policy": "required-container-insights",
+      "rule": "required-container-insights",
+      "result": "fail",
+      "message": "Container insights should be enabled on ECS cluster 'ecs-test' at 'arn:aws:ecs:us-west-1:844333597536:cluster/ecs-test': all[0].check.~.settings[0].value: Invalid value: \"disabled\": Expected value: \"enabled\""
+    },
+    {
+      "policy": "ecs-cluster-require-fargate",
+      "rule": "required-container-fargate",
+      "result": "fail",
+      "message": "FARGATE should be enabled on ECS cluster 'cluster' at 'arn:aws:ecs:us-west-1:844333597536:cluster/cluster': [any[0].check.capacityProviders.(contains(@, 'FARGATE')): Invalid value: false: Expected value: true, any[0].check.capacityProviders.(contains(@, 'FARGATE_SPOT')): Invalid value: false: Expected value: true]"
+    },
+    {
+      "policy": "required-container-insights",
+      "rule": "required-container-insights",
+      "result": "pass",
+      "message": ""
+    },
+    {
+      "policy": "ecs-cluster-require-fargate",
+      "rule": "required-container-fargate",
+      "result": "pass",
+      "message": ""
+    },
+    {
+      "policy": "required-container-insights",
+      "rule": "required-container-insights",
+      "result": "fail",
+      "message": "Container insights should be enabled on ECS cluster 'boris-norvatis-ecs' at 'arn:aws:ecs:us-west-1:844333597536:cluster/boris-norvatis-ecs': all[0].check.~.settings[0].value: Invalid value: \"disabled\": Expected value: \"enabled\""
+    }
+  ]
+}

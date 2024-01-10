@@ -1,0 +1,64 @@
+{
+  "results": [
+    {
+      "policy": "ecs-task-definition-public-image",
+      "rule": "ecs-task-definition-public-registry",
+      "result": "pass",
+      "message": ""
+    },
+    {
+      "policy": "ecs-task-definition-ro-root-fs",
+      "rule": "ecs-task-definition-ro-root-fs",
+      "result": "pass",
+      "message": ""
+    },
+    {
+      "policy": "ecs-task-definition-public-image",
+      "rule": "ecs-task-definition-public-registry",
+      "result": "pass",
+      "message": ""
+    },
+    {
+      "policy": "ecs-task-definition-ro-root-fs",
+      "rule": "ecs-task-definition-ro-root-fs",
+      "result": "pass",
+      "message": ""
+    },
+    {
+      "policy": "ecs-task-definition-public-image",
+      "rule": "ecs-task-definition-public-registry",
+      "result": "pass",
+      "message": ""
+    },
+    {
+      "policy": "ecs-task-definition-ro-root-fs",
+      "rule": "ecs-task-definition-ro-root-fs",
+      "result": "pass",
+      "message": ""
+    },
+    {
+      "policy": "ecs-task-definition-public-image",
+      "rule": "ecs-task-definition-public-registry",
+      "result": "pass",
+      "message": ""
+    },
+    {
+      "policy": "ecs-task-definition-ro-root-fs",
+      "rule": "ecs-task-definition-ro-root-fs",
+      "result": "pass",
+      "message": ""
+    },
+    {
+      "policy": "ecs-task-definition-public-image",
+      "rule": "ecs-task-definition-public-registry",
+      "result": "fail",
+      "message": "ECS Task Definitions require the use of 'INTERNAL_REGISTRY' at taskDefinition 'arn:aws:ecs:us-west-1:844333597536:task-definition/sinatra-hi:1': any[0].check.~.containerDefinitions[0].image.(contains(@, 'nginx')): Invalid value: false: Expected value: true"
+    },
+    {
+      "policy": "ecs-task-definition-ro-root-fs",
+      "rule": "ecs-task-definition-ro-root-fs",
+      "result": "fail",
+      "message": "ECS Task Definitions require the use of readonlyRootFilesystem at taskDefinition 'arn:aws:ecs:us-west-1:844333597536:task-definition/sinatra-hi:1': any[0].check.~.containerDefinitions[0].readonlyRootFilesystem: Invalid value: false: Expected value: true"
+    }
+  ]
+}
