@@ -33,10 +33,7 @@ except FileNotFoundError:
 # Initialize summary counts
 summary_counts = {"error": 0, "fail": 0, "pass": 0, "skip": 0, "warn": 0}
 
-# Function to process each result and format it into a Kyverno policy report result
-# Currently it produces one report, the idea is to have it parse out the different $policiy
-# and generate a report per policy instead of one large all-in-one this is a purely
-# cosmetic thing due to how NPM parses report
+# Function to process each result and format it into a Kyverno policy report
 def process_result(item):
     scored = True
     source = "kyverno"
