@@ -28,7 +28,7 @@ try:
         data = json.load(file)
 except FileNotFoundError:
     print("File not found!")
-    sys.exit(1)
+    exit(1)
 
 # Initialize summary counts
 summary_counts = {"error": 0, "fail": 0, "pass": 0, "skip": 0, "warn": 0}
@@ -42,6 +42,7 @@ def process_result(item):
     # Update summary counts
     summary_counts[item['result']] += 1
 
+    #TODO: Need to look into the string splicing, the -12 feels like I am doing something wrong and it is definitely recipe for error
     arn_start = item['message'].find("'arn:aws:ecs:") + len("'arn:aws:ecs:") - 12
     arn_end = item['message'].find("'", arn_start)
     arn = item['message'][arn_start:arn_end]
