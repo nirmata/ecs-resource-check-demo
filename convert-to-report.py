@@ -69,33 +69,28 @@ def process_result(item):
         }
     }
 
-# Generate Kyverno policy report results
-results = [process_result(result) for result in data['results']]
-
-# Construct the full Kyverno policy report
-kyverno_report = {
-    "apiVersion": "v1",
-    "items": [
-        {
-            "apiVersion": "wgpolicyk8s.io/v1alpha2",
-            "kind": "PolicyReport",
-            "metadata": {
-                "labels": {
-                    "app.kubernetes.io/managed-by": "kyverno",
-                    "cpol.kyverno.io/disallow-latest-tag-test": "97536"
-                },
-                "name": "cpol-disallow-latest-tag-test",
-                "namespace": "norvatis"
-            },
-            "results": results,
-            "summary": summary_counts
-        }
-    ],
-    "kind": "List",
-    "metadata": {
-        "resourceVersion": ""  # Add the correct resource version if needed
+# Generate Kyverno policy report
+# Identify unique policies
+unique_policies = set(result['policy'] for result in data['results'])
+# Generate Kyverno policy report for each unique policy
+kyverno_reports = []
+for policy in unique_policies:
+    policy_results = [process_result(result) for result in data['results'] if result['policy'] == policy]
+    kyverno_report = {
+        "apiVersion": "wgpolicyk8s.io/v1alpha2",
+        "kind": "PolicyReport",
+        "metadata": {
+            "name": f"{policy}",
+            "namespace": "norvatis"
+        },
+        "results": policy_results,
+        "summary": summary_counts
     }
-}
+    kyverno_reports.append(kyverno_report)
+    # reset counts
+    summary_counts = {"error": 0, "fail": 0, "pass": 0, "skip": 0, "warn": 0}
 
-# Output the formatted report
-print(yaml.dump(kyverno_report, indent=2))
+# Output the formatted reports
+for report in kyverno_reports:
+    print("---")
+    print(yaml.dump(report, indent=2))
