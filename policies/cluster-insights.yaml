@@ -12,7 +12,7 @@ spec:
     - name: required-container-insights
       assert:
         all:
-          - message: Container insights should be enabled on ECS cluster '{{clusterName}}' at '{{clusterArn}}'
+          - message: ECS Cluster Container Insights should be enabled '{{clusterName}}' at '{{clusterArn}}'
             check:
               ~.settings:
                   name: containerInsights

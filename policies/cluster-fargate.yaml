@@ -12,7 +12,7 @@ spec:
     - name: required-container-fargate
       assert:
         any:
-          - message: FARGATE should be enabled on ECS cluster '{{clusterName}}' at '{{clusterArn}}'
+          - message: ECS Cluster use of Fargate or Fargate Spot instances should be used '{{clusterName}}' at '{{clusterArn}}'
             check:
               capacityProviders:
                 (contains(@, 'FARGATE')): true

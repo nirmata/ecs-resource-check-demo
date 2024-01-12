@@ -16,4 +16,3 @@ spec:
             check:
               ~.containerDefinitions:
                 readonlyRootFilesystem: true
-

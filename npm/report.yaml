@@ -30,6 +30,7 @@ results:
     kind: ECS Cluster
     name: arn:aws:ecs:us-west-1:844333597536:cluster/ecs-test
     namespace: norvatis
+    uuid: ecs-cluster
   result: fail
   rule: required-container-fargate
   scored: false
@@ -122,6 +123,7 @@ results:
     kind: ECS Task
     name: arn:aws:ecs:us-west-1:844333597536:task/boris-norvatis-ecs/1ead6c02ddc14b2db3b9a29813637074
     namespace: norvatis
+    uuid: ecs-task
   result: fail
   rule: ecs-task-container-command
   scored: false
