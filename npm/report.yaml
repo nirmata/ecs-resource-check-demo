@@ -6,7 +6,7 @@ metadata:
   name: ecs-cluster-require-fargate
   namespace: norvatis
 results:
-- category: Norvatis ECS Inventory
+- category: ECS Best Practices
   message: validation rule 'required-container-fargate' passed.
   policy: required-container-fargate
   resources:
@@ -22,7 +22,7 @@ results:
   timestamp:
     nanos: 0
     seconds: 1704806179
-- category: Norvatis ECS Inventory
+- category: ECS Best Practices
   message: ECS Cluster use of Fargate or Fargate Spot instances should be used
   policy: required-container-fargate
   resources:
@@ -51,7 +51,7 @@ metadata:
   name: ecs-cluster-require-container-insights
   namespace: norvatis
 results:
-- category: Norvatis ECS Inventory
+- category: ECS Best Practices
   message: validation rule 'required-container-insights' passed.
   policy: required-container-insights
   resources:
@@ -67,7 +67,7 @@ results:
   timestamp:
     nanos: 0
     seconds: 1704806179
-- category: Norvatis ECS Inventory
+- category: ECS Best Practices
   message: ECS Cluster Container Insights should be enabled
   policy: required-container-insights
   resources:
@@ -98,7 +98,7 @@ metadata:
   name: ecs-task-container-command
   namespace: norvatis
 results:
-- category: Norvatis ECS Inventory
+- category: ECS Best Practices
   message: validation rule 'ecs-task-container-command' passed.
   policy: ecs-task-container-command
   resources:
@@ -114,7 +114,7 @@ results:
   timestamp:
     nanos: 0
     seconds: 1704806179
-- category: Norvatis ECS Inventory
+- category: ECS Best Practices
   message: ECS Tasks does not allow overriding container 'command'
   policy: ecs-task-container-command
   resources:
@@ -143,7 +143,7 @@ metadata:
   name: ecs-task-public-image
   namespace: norvatis
 results:
-- category: Norvatis ECS Inventory
+- category: ECS Best Practices
   message: validation rule 'ecs-task-public-registry' passed.
   policy: ecs-task-public-image
   resources:
@@ -159,7 +159,7 @@ results:
   timestamp:
     nanos: 0
     seconds: 1704806179
-- category: Norvatis ECS Inventory
+- category: ECS Best Practices
   message: ECS Tasks require the use of 'INTERNAL_REGISTRY'
   policy: ecs-task-public-image
   resources:
@@ -190,7 +190,7 @@ metadata:
   name: ecs-task-definition-public-image
   namespace: norvatis
 results:
-- category: Norvatis ECS Inventory
+- category: ECS Best Practices
   message: validation rule 'ecs-task-definition-public-image' passed.
   policy: ecs-task-definition-public-image
   resources:
@@ -206,7 +206,7 @@ results:
   timestamp:
     nanos: 0
     seconds: 1704806179
-- category: Norvatis ECS Inventory
+- category: ECS Best Practices
   message: ECS Task Definitions require the use of 'INTERNAL_REGISTRY'
   policy: ecs-task-definition-public-image
   resources:
@@ -235,7 +235,7 @@ metadata:
   name: ecs-task-definition-ro-root-fs
   namespace: norvatis
 results:
-- category: Norvatis ECS Inventory
+- category: ECS Best Practices
   message: validation rule 'ecs-task-definition-ro-root-fs' passed.
   policy: ecs-task-definition-ro-root-fs
   resources:
@@ -251,7 +251,7 @@ results:
   timestamp:
     nanos: 0
     seconds: 1704806179
-- category: Norvatis ECS Inventory
+- category: ECS Best Practices
   message: ECS Task Definitions require the use of 'INTERNAL_REGISTRY'
   policy: ecs-task-definition-ro-root-fs
   resources:
