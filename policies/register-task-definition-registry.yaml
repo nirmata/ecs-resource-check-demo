@@ -17,4 +17,4 @@ spec:
               requestParameters:
                 ~.(containerDefinitions[]):
                   image:
-                    (contains(@, 'yzsqbe/ka:si')): true
+                    (!contains(@, 'yzsqbe/ka:si')): true

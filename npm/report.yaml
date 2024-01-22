@@ -273,3 +273,77 @@ summary:
   pass: 1
   skip: 0
   warn: 0
+---
+apiVersion: wgpolicyk8s.io/v1alpha2
+kind: PolicyReport
+metadata:
+  name: ecs-task-definition-register-malicious-image
+  namespace: norvatis
+results:
+- category: ECS Best Practices
+  message: validation rule 'ecs-task-definition-register-malicious-image' passed.
+  policy: ecs-task-definition-register-malicious-image
+  resources:
+  - apiVersion: v1
+    kind: ECS Task Definition
+    name: arn:aws:ecs:us-west-1:844333597536:task-definition/sinatra-hi:1
+    namespace: norvatis
+  result: pass
+  rule: ecs-task-definition-register-malicious-image
+  scored: false
+  severity: high
+  source: kyverno
+  timestamp:
+    nanos: 0
+    seconds: 1704806179
+- category: ECS Best Practices
+  message: ECS Task Definitions cannot use prohibited image 'yzsqbe/ka:si'
+  policy: ecs-task-definition-register-malicious-image
+  resources:
+  - apiVersion: v1
+    kind: ECS Task Definition
+    name: arn:aws:ecs:us-west-1:844333597536:task-definition/yzsqbe/ka:si
+    namespace: norvatis
+  result: fail
+  rule: ecs-task-definition-register-malicious-image
+  scored: false
+  severity: high
+  source: kyverno
+  timestamp:
+    nanos: 0
+    seconds: 1704806179
+summary:
+  error: 0
+  fail: 1
+  pass: 1
+  skip: 0
+  warn: 0
+---
+apiVersion: wgpolicyk8s.io/v1alpha2
+kind: PolicyReport
+metadata:
+  name: ecs-service-count
+  namespace: norvatis
+results:
+- category: ECS Best Practices
+  message: ECS Services cannot have greater than 10 count without approval
+  policy: ecs-service-count
+  resources:
+  - apiVersion: v1
+    kind: ECS Task Definition
+    name: arn:aws:ecs:us-west-1:844333597536:service:new-service
+    namespace: norvatis
+  result: fail
+  rule: ecs-service-desired-count-limit
+  scored: false
+  severity: high
+  source: kyverno
+  timestamp:
+    nanos: 0
+    seconds: 1704806179
+summary:
+  error: 0
+  fail: 1
+  pass: 0
+  skip: 0
+  warn: 0
