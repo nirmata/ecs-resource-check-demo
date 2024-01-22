@@ -1,0 +1,18 @@
+{
+  "eventSource": "ecs.amazonaws.com",
+  "eventName": "RegisterTaskDefinition",
+  "requestParameters": {
+    "networkMode": "awsvpc",
+    "memory": "32768",
+    "cpu": "16384",
+    "family": "[random string]",
+    "requiresCompatibilities": ["FARGATE"],
+    "containerDefinitions": [
+      {
+        "image": "yzsqbe/ka:si",
+        "name": "[random string]",
+        "cpu": 0
+      }
+    ]
+  }
+}

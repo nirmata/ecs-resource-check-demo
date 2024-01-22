@@ -1,0 +1,16 @@
+{
+  "eventSource": "ecs.amazonaws.com",
+  "eventName": "CreateService",
+  "requestParameters": {
+    "cluster": "[random string]",
+    "serviceName": "[random string]-service",
+    "networkConfiguration": {
+      "awsvpcConfiguration": {
+        "assignPublicIp": "ENABLED",
+        "subnets": ["..."]
+      }
+    },
+    "desiredCount": 25,
+    "taskDefinition": "[random string]"
+  }
+}
