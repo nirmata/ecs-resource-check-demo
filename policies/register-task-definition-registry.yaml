@@ -18,3 +18,14 @@ spec:
                 ~.(containerDefinitions[]):
                   image:
                     (!contains(@, 'yzsqbe/ka:si')): true
+                    (!contains(@, 'ahnoyp/ak:ma')): true
+                    (!contains(@, 'ahnoyp/ku:mi')): true
+                    (!contains(@, 'cxgdyr/ca:da')): true
+                    (!contains(@, 'cxgdyr/ku:en')): true
+                    (!contains(@, 'dilgrw/ca:za')): true
+                    (!contains(@, 'dilgrw/ku:lo')): true
+                    (!contains(@, 'enicfc/ca:mu')): true
+                    (!contains(@, 'enicfc/mu:ja')): true
+                    (!contains(@, 'etiuaz/ac:an')): true
+                    (!contains(@, 'etiuaz/uj:ku')): true
+                    (!contains(@, 'flmmov/ad:ai')): true
