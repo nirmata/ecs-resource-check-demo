@@ -330,7 +330,7 @@ results:
   policy: ecs-service-count
   resources:
   - apiVersion: v1
-    kind: ECS Task Definition
+    kind: ECS Service
     name: arn:aws:ecs:us-west-1:844333597536:service:new-service
     namespace: norvatis
   result: fail
