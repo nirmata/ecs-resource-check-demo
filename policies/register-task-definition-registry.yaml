@@ -12,7 +12,7 @@ spec:
     - name: ecs-task-definition-register-malicious-image
       assert:
         any:
-          - message: ECS Task Definitions cannot use prohibited image 'yzsqbe/ka:si'
+          - message: ECS Task Definitions cannot use known malicious images from Docker Hub
             check:
               requestParameters:
                 ~.(containerDefinitions[]):
