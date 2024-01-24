@@ -17,4 +17,4 @@ spec:
               detail:
                 ~.containerInstances:
                   image:
-                    (contains(@, 'internal-registry')): true
+                    (contains(@, 'nginx')): true
