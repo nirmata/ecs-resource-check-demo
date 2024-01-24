@@ -19,3 +19,9 @@ aws ecs describe-clusters --output json --include SETTINGS --clusters `aws ecs l
 
 -  Run `test-payloads.sh` to get sample output from `kyverno-json` output
 -  Run `convert-to-report.py` to convert the outputs to an NPM readable report that can be applied in a k8s cluster
+
+To build the Docker images pass the tag version you want (increase the version as you go):
+
+```sh
+./build.sh v1
+```

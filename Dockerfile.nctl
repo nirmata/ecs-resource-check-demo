@@ -1,0 +1,21 @@
+#!/bin/bash
+# Build for ARM64
+# Builder
+FROM amazon/aws-lambda-nodejs:18
+RUN yum -y update && yum -y install unzip && yum clean all
+
+RUN curl -sSL https://nirmata-downloads.s3.us-east-2.amazonaws.com/nctl/nctl_3.3.9/nctl_3.3.9_linux_64-bit.zip -o nctl.zip &&  unzip nctl.zip && mv nctl /bin
+RUN chown -R root:root /bin/nctl
+
+COPY ./lambda/src/package*.json ./
+COPY ./lambda/src/app-nctl.js ./app.js
+RUN npm install && npm install -g js-yaml
+
+RUN mkdir /policies
+COPY ./policies/eb-ecs-*.yaml /policies/
+
+ENV HOME=/tmp
+ENV RUN_COMMAND=nctl
+ENV WEBHOOK_URL=null
+
+CMD [ "app.handler" ]

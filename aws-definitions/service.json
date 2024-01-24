@@ -1,7 +1,0 @@
-{
-    "cluster": "boris-norvatis-ecs",
-    "serviceName": "test-scan-service",
-    "taskDefinition": "sinatra-hi",
-    "desiredCount": 1,
-    "role": "ecsServiceRole"
-}

@@ -5,14 +5,15 @@ metadata:
     description.policy.kyverno.io: This Policy ensures that ECS services do not have public Docker image
     title.policy.kyverno.io: ECS Task public Docker Image usage
   labels:
-    ecs.aws.tags.kyverno.io: ecs-task
-  name: ecs-task-public-image
+    ecs.aws.tags.kyverno.io: ecs-service
+  name: ecs-service-count
 spec:
   rules:
-    - name: ecs-task-public-registry
+    - name: ecs-service-desired-count-limit
       assert:
         any:
-          - message: ECS Tasks require the use of 'INTERNAL_REGISTRY' at task '{{taskArn}}'
+          - message: ECS Services cannot have greater than 10 count without approval
             check:
-              image:
-                (contains(@, 'internal-registry')): true
+              detail:
+                requestParameters:
+                  (desiredCount > '10'): true

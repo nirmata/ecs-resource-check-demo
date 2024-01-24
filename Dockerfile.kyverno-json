@@ -4,18 +4,18 @@
 FROM amazon/aws-lambda-nodejs:18
 RUN yum -y update && yum -y install tar gzip && yum clean all
 
-
 RUN curl -sSL https://github.com/kyverno/kyverno-json/releases/download/v0.0.2/kyverno-json_linux_amd64.tar.gz -o kyverno-json.tar.gz && tar xvf ./kyverno-json.tar.gz && mv ./kyverno-json /bin
 RUN chown -R root:root /bin/kyverno-json
 
-COPY ./src/package*.json ./
-COPY ./src/app-kyverno-json.js ./app.js
+COPY ./lambda/src/package*.json ./
+COPY ./lambda/src/app-kyverno-json.js ./app.js
 RUN npm install -y && npm install -g js-yaml -y && npm install -g axios  -y
+
 RUN mkdir /policies
-COPY ./test/policy/ecs-*.yaml /policies/
-COPY ./test/policy/eks-*.yaml /policies/
+COPY ./policies/eb-ecs-*.yaml /policies/
 
 ENV HOME=/tmp
 ENV RUN_COMMAND=kyverno-json
+ENV WEBHOOK_URL=null
 
 CMD [ "app.handler" ]

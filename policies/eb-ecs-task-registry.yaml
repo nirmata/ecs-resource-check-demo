@@ -1,0 +1,20 @@
+apiVersion: json.kyverno.io/v1alpha1
+kind: ValidatingPolicy
+metadata:
+  annotations:
+    description.policy.kyverno.io: This Policy ensures that ECS services do not have public Docker image
+    title.policy.kyverno.io: ECS Task public Docker Image usage
+  labels:
+    ecs.aws.tags.kyverno.io: ecs-task
+  name: ecs-task-public-image
+spec:
+  rules:
+    - name: ecs-task-public-registry
+      assert:
+        any:
+          - message: ECS Tasks require the use of 'INTERNAL_REGISTRY' at task '{{detail.taskArn}}'
+            check:
+              detail:
+                ~.containerInstances:
+                  image:
+                    (contains(@, 'internal-registry')): true
