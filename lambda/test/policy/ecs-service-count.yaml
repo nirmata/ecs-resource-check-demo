@@ -1,0 +1,17 @@
+apiVersion: json.kyverno.io/v1alpha1
+kind: ValidatingPolicy
+metadata:
+  annotations:
+    description.policy.kyverno.io: This Policy ensures that ECS services do not have public Docker image
+    title.policy.kyverno.io: ECS Task public Docker Image usage
+  labels:
+    ecs.aws.tags.kyverno.io: ecs-service
+  name: ecs-service-count
+spec:
+  rules:
+    - name: ecs-service-desired-count-limit
+      assert:
+        any:
+          - message: ECS Services cannot have greater than 10 count without approval
+            check:
+              (desiredCount > '10'): true

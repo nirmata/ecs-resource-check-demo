@@ -1,0 +1,25 @@
+apiVersion: json.kyverno.io/v1alpha1
+kind: ValidatingPolicy
+metadata:
+  name: eks-cluster-check-endpoint
+  labels:
+    eks.aws.tags.kyverno.io: 'eks-cluster'
+  annotations:
+    title.policy.kyverno.io: EKS cluster check endpoint
+    description.policy.kyverno.io: This Policy checks if EKS cluster uses public endpoint
+spec:
+  rules:
+    - name: eks-cluster-check-endpoint
+      match:
+        all:
+         - source: "aws.eks"
+         - detail:
+            eventName: "CreateCluster"
+      assert:
+        all:
+        - message: "EKS cluster '{{detail.requestParameters.name}}' should not use public endpoint"
+          check:
+            detail:
+              requestParameters:
+                resourcesVpcConfig:
+                  endpointPublicAccess: false

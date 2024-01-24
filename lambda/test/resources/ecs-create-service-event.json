@@ -1,0 +1,189 @@
+{
+    "version": "0",
+    "id": "85d82cc2-259b-4d55-cfdd-18fc448d3271",
+    "detail-type": "AWS API Call via CloudTrail",
+    "source": "aws.ecs",
+    "account": "844333597536",
+    "time": "2023-12-08T02:47:32Z",
+    "region": "us-west-1",
+    "resources": [],
+    "detail": {
+        "eventVersion": "1.08",
+        "userIdentity": {
+            "type": "AssumedRole",
+            "principalId": "AROA4JFRUINQPJLRF3ZGH:ritesh@nirmata.com",
+            "arn": "arn:aws:sts::844333597536:assumed-role/AWSReservedSSO_AWSAdministratorAccess_d270afaa03aa789f/ritesh@nirmata.com",
+            "accountId": "844333597536",
+            "accessKeyId": "ASIA4JFRUINQN3ZB2Z5R",
+            "sessionContext": {
+                "sessionIssuer": {
+                    "type": "Role",
+                    "principalId": "AROA4JFRUINQPJLRF3ZGH",
+                    "arn": "arn:aws:iam::844333597536:role/aws-reserved/sso.amazonaws.com/us-east-2/AWSReservedSSO_AWSAdministratorAccess_d270afaa03aa789f",
+                    "accountId": "844333597536",
+                    "userName": "AWSReservedSSO_AWSAdministratorAccess_d270afaa03aa789f"
+                },
+                "webIdFederationData": {},
+                "attributes": {
+                    "creationDate": "2023-12-08T02:13:45Z",
+                    "mfaAuthenticated": "false"
+                }
+            },
+            "invokedBy": "cloudformation.amazonaws.com"
+        },
+        "eventTime": "2023-12-08T02:47:32Z",
+        "eventSource": "ecs.amazonaws.com",
+        "eventName": "CreateService",
+        "awsRegion": "us-west-1",
+        "sourceIPAddress": "cloudformation.amazonaws.com",
+        "userAgent": "cloudformation.amazonaws.com",
+        "requestParameters": {
+            "capacityProviderStrategy": [
+                {
+                    "capacityProvider": "FARGATE",
+                    "weight": 1,
+                    "base": 0
+                }
+            ],
+            "clientToken": "11488369-b83b-808d-0860-7059fc96c6f5",
+            "cluster": "ecs-test",
+            "deploymentConfiguration": {
+                "deploymentCircuitBreaker": {
+                    "enable": true,
+                    "rollback": true
+                },
+                "maximumPercent": 200,
+                "minimumHealthyPercent": 100
+            },
+            "deploymentController": {
+                "type": "ECS"
+            },
+            "desiredCount": 1,
+            "enableECSManagedTags": true,
+            "enableExecuteCommand": false,
+            "networkConfiguration": {
+                "awsvpcConfiguration": {
+                    "assignPublicIp": "ENABLED",
+                    "securityGroups": [
+                        "sg-0b7e416d6588d69f4"
+                    ],
+                    "subnets": [
+                        "subnet-0dff3fad15acc9156",
+                        "subnet-0ed4ba827d3066107"
+                    ]
+                }
+            },
+            "platformVersion": "LATEST",
+            "schedulingStrategy": "REPLICA",
+            "serviceName": "nginx-demo-1",
+            "serviceConnectConfiguration": {
+                "enabled": false
+            },
+            "taskDefinition": "arn:aws:ecs:us-west-1:844333597536:task-definition/nginx:2"
+        },
+        "responseElements": {
+            "service": {
+                "serviceArn": "arn:aws:ecs:us-west-1:844333597536:service/ecs-test/nginx-demo-1",
+                "serviceName": "nginx-demo-1",
+                "clusterArn": "arn:aws:ecs:us-west-1:844333597536:cluster/ecs-test",
+                "loadBalancers": [],
+                "serviceRegistries": [],
+                "status": "ACTIVE",
+                "desiredCount": 1,
+                "runningCount": 0,
+                "pendingCount": 0,
+                "capacityProviderStrategy": [
+                    {
+                        "capacityProvider": "FARGATE",
+                        "weight": 1,
+                        "base": 0
+                    }
+                ],
+                "platformVersion": "LATEST",
+                "platformFamily": "Linux",
+                "taskDefinition": "arn:aws:ecs:us-west-1:844333597536:task-definition/nginx:2",
+                "deploymentConfiguration": {
+                    "deploymentCircuitBreaker": {
+                        "enable": true,
+                        "rollback": true
+                    },
+                    "maximumPercent": 200,
+                    "minimumHealthyPercent": 100
+                },
+                "deployments": [
+                    {
+                        "id": "ecs-svc/0458644110211041994",
+                        "status": "PRIMARY",
+                        "taskDefinition": "arn:aws:ecs:us-west-1:844333597536:task-definition/nginx:2",
+                        "desiredCount": 1,
+                        "pendingCount": 0,
+                        "runningCount": 0,
+                        "failedTasks": 0,
+                        "createdAt": "Dec 8, 2023, 2:47:32 AM",
+                        "updatedAt": "Dec 8, 2023, 2:47:32 AM",
+                        "capacityProviderStrategy": [
+                            {
+                                "capacityProvider": "FARGATE",
+                                "weight": 1,
+                                "base": 0
+                            }
+                        ],
+                        "platformVersion": "1.4.0",
+                        "platformFamily": "Linux",
+                        "networkConfiguration": {
+                            "awsvpcConfiguration": {
+                                "assignPublicIp": "ENABLED",
+                                "securityGroups": [
+                                    "sg-0b7e416d6588d69f4"
+                                ],
+                                "subnets": [
+                                    "subnet-0dff3fad15acc9156",
+                                    "subnet-0ed4ba827d3066107"
+                                ]
+                            }
+                        },
+                        "rolloutState": "IN_PROGRESS",
+                        "rolloutStateReason": "ECS deployment ecs-svc/0458644110211041994 in progress.",
+                        "failedLaunchTaskCount": 0,
+                        "replacedTaskCount": 0
+                    }
+                ],
+                "roleArn": "arn:aws:iam::844333597536:role/aws-service-role/ecs.amazonaws.com/AWSServiceRoleForECS",
+                "version": 0,
+                "events": [],
+                "createdAt": "Dec 8, 2023, 2:47:32 AM",
+                "placementConstraints": [],
+                "placementStrategy": [],
+                "networkConfiguration": {
+                    "awsvpcConfiguration": {
+                        "assignPublicIp": "ENABLED",
+                        "securityGroups": [
+                            "sg-0b7e416d6588d69f4"
+                        ],
+                        "subnets": [
+                            "subnet-0dff3fad15acc9156",
+                            "subnet-0ed4ba827d3066107"
+                        ]
+                    }
+                },
+                "schedulingStrategy": "REPLICA",
+                "deploymentController": {
+                    "type": "ECS"
+                },
+                "createdBy": "arn:aws:iam::844333597536:role/aws-reserved/sso.amazonaws.com/us-east-2/AWSReservedSSO_AWSAdministratorAccess_d270afaa03aa789f",
+                "enableECSManagedTags": true,
+                "propagateTags": "NONE",
+                "enableExecuteCommand": false
+            }
+        },
+        "requestID": "66d4e590-78c7-414c-b942-7d1cb22bff6f",
+        "eventID": "146ea334-ef12-4621-a715-4fd7d6d07d6f",
+        "readOnly": false,
+        "eventType": "AwsApiCall",
+        "managementEvent": true,
+        "recipientAccountId": "844333597536",
+        "eventCategory": "Management",
+        "sessionCredentialFromConsole": "true"
+    }
+}
+
