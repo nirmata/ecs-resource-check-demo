@@ -1,0 +1,26 @@
+apiVersion: json.kyverno.io/v1alpha1
+kind: ValidatingPolicy
+metadata:
+  name: ecs-cluster-check-launchtype
+  labels:
+    ecs.aws.tags.kyverno.io: 'ecs-cluster'
+  annotations:
+    title.policy.kyverno.io: ECS cluster check launch type
+    description.policy.kyverno.io: This Policy ensures that ECS tasks do not use FARGATE
+spec:
+  rules:
+    - name: ecs-cluster-check-launchtype
+      match:
+        all:
+         - source: aws.ecs
+         - detail:
+             eventName: "RunTask"
+      context:
+      - name: launch_type
+        variable: ["FARGATE"]
+      assert:
+        all:
+        - message: "ECS Tasks should not use FARGATE launch type"
+          check:
+            detail:
+              (contains($launch_type, @.launchType)): false
