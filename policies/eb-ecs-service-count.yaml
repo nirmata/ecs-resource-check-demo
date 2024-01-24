@@ -17,7 +17,7 @@ spec:
              eventName: "CreateService"
       assert:
         all:
-          - message: ECS Services cannot have greater than 10 count without approval
+          - message: ECS Services cannot have greater than 10 count without approval '{{detail.requestParameters.serviceName}}'
             check:
               detail:
                 requestParameters:

@@ -17,7 +17,7 @@ spec:
              eventName: "CreateService"
       assert:
         all:
-        - message: "ECS Service '{{detail.requestParameters.serviceName}}' should not use public IP"
+        - message: "ECS Services '{{detail.requestParameters.serviceName}}' should not use public IP"
           check:
             detail:
               requestParameters:
