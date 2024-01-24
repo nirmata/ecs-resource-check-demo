@@ -12,9 +12,10 @@ spec:
     - name: ecs-task-container-command
       assert:
         any:
-          - message: ECS Task does not allow overriding container 'command' at task '{{taskArn}}'
+          - message: ECS Task does not allow overriding container 'command' at task '{{detail.taskArn}}'
             check:
-              overrides:
-                ~.containerOverrides:
-                  # Make sure that 'command' is not set
-                  (!command): true
+              detail:
+                overrides:
+                  ~.containerOverrides:
+                    # Make sure that 'command' is not set
+                    (!command): true

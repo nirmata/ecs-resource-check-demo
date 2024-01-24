@@ -5,8 +5,8 @@ metadata:
   labels:
     ecs.aws.tags.kyverno.io: 'ecs-cluster'
   annotations:
-    title.policy.kyverno.io: ECS service check public ip
-    description.policy.kyverno.io: This Policy checks that ECS service does not use FARGATE
+    title.policy.kyverno.io: ECS service check public IP
+    description.policy.kyverno.io: This Policy checks that ECS service does not use a public IP
 spec:
   rules:
     - name: ecs-service-check-public-ip
@@ -17,7 +17,7 @@ spec:
              eventName: "CreateService"
       assert:
         all:
-        - message: "ECS service '{{detail.requestParameters.serviceName}}' should not use public ip"
+        - message: "ECS Service '{{detail.requestParameters.serviceName}}' should not use public IP"
           check:
             detail:
               requestParameters:
