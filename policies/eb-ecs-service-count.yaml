@@ -10,8 +10,13 @@ metadata:
 spec:
   rules:
     - name: ecs-service-desired-count-limit
+      match:
+        all:
+         - source: aws.ecs
+         - detail:
+             eventName: "CreateService"
       assert:
-        any:
+        all:
           - message: ECS Services cannot have greater than 10 count without approval
             check:
               detail:

@@ -10,6 +10,11 @@ metadata:
 spec:
   rules:
     - name: ecs-task-container-command
+      match:
+        all:
+         - source: aws.ecs
+         - detail:
+             eventName: "CreateTask"
       assert:
         any:
           - message: ECS Task does not allow overriding container 'command' at task '{{detail.taskArn}}'

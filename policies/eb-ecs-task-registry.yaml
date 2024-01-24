@@ -10,6 +10,11 @@ metadata:
 spec:
   rules:
     - name: ecs-task-public-registry
+      match:
+        all:
+         - source: aws.ecs
+         - detail:
+             eventName: "CreateTask"
       assert:
         any:
           - message: ECS Tasks require the use of 'INTERNAL_REGISTRY' at task '{{detail.taskArn}}'

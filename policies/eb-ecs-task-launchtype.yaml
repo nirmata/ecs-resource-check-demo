@@ -20,7 +20,7 @@ spec:
         variable: ["FARGATE"]
       assert:
         all:
-        - message: "ECS task should not use Fargate launch type"
+        - message: "ECS task should not use FARGATE launch type"
           check:
             detail:
               (contains($launch_type, @.launchType)): false
