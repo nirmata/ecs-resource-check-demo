@@ -1,49 +1,56 @@
 {
-  "version": "0",
-  "id": "f8a990c2-2f93-4713-8b5d-d5b96f35bfd7",
-  "detail-type": "ECS Task State Change",
-  "source": "aws.ecs",
-  "account": "123456789012",
-  "time": "2016-09-15T21:57:35Z",
-  "region": "us-east-1",
-  "resources": [
-    "arn:aws:ecs:us-east-1:123456789012:task/3102878e-4af2-4b3c-b9c1-2556b95b2bbf"
-  ],
-  "detail": {
-    "clusterArn": "arn:aws:ecs:us-east-1:123456789012:cluster/cluster1",
-    "containerInstanceArn": "arn:aws:ecs:us-east-1:123456789012:container-instance/04f8c17d-29e0-4711-aa74-852654e477ec",
-    "containers": [
-      {
-        "containerArn": "arn:aws:ecs:us-east-1:123456789012:container/40a3b4bd-79ae-4472-a0be-816e5e0044a0",
-        "lastStatus": "PENDING",
-        "name": "test",
-        "taskArn": "arn:aws:ecs:us-east-1:123456789012:task/3102878e-4af2-4b3c-b9c1-2556b95b2bbf"
-      }
+    "version": "0",
+    "id": "94dd41b5-e582-701a-cb5c-cbd8bec48cf8",
+    "detail-type": "ECS Task State Change",
+    "source": "aws.ecs",
+    "account": "844333597536",
+    "time": "2024-01-24T22:51:14Z",
+    "region": "us-west-1",
+    "resources": [
+        "arn:aws:ecs:us-west-1:844333597536:task/boris-norvatis-ecs/5fd87cbbff3f4361b50a26c0c0256664"
     ],
-    "createdAt": "2016-09-15T21:30:33.3Z",
-    "desiredStatus": "RUNNING",
-    "lastStatus": "PENDING",
-    "overrides": {
-      "containerOverrides": [
-        {
-          "command": ["command1", "command2"],
-          "environment": [
+    "detail": {
+        "attachments": [],
+        "attributes": [
             {
-              "name": "env1",
-              "value": "value1"
-            },
-            {
-              "name": "env2",
-              "value": "value2"
+                "name": "ecs.cpu-architecture",
+                "value": "x86_64"
             }
-          ],
-          "name": "test"
-        }
-      ]
-    },
-    "updatedAt": "2016-09-15T21:30:33.3Z",
-    "taskArn": "arn:aws:ecs:us-east-1:123456789012:task/3102878e-4af2-4b3c-b9c1-2556b95b2bbf",
-    "taskDefinitionArn": "arn:aws:ecs:us-east-1:123456789012:task-definition/testTD:1",
-    "version": 1
-  }
+        ],
+        "availabilityZone": "us-west-1a",
+        "capacityProviderName": "Infra-ECS-Cluster-boris-norvatis-ecs-300db02e-EC2CapacityProvider-X3WrITnbXqeB",
+        "clusterArn": "arn:aws:ecs:us-west-1:844333597536:cluster/boris-norvatis-ecs",
+        "containerInstanceArn": "arn:aws:ecs:us-west-1:844333597536:container-instance/boris-norvatis-ecs/38fd1d113c554184a17c9582e9b6f2b8",
+        "containers": [
+            {
+                "containerArn": "arn:aws:ecs:us-west-1:844333597536:container/boris-norvatis-ecs/5fd87cbbff3f4361b50a26c0c0256664/57e9e616-cf65-40e1-9382-84b50eec44a0",
+                "lastStatus": "PENDING",
+                "name": "web",
+                "image": "tongueroo/sinatra:latest",
+                "taskArn": "arn:aws:ecs:us-west-1:844333597536:task/boris-norvatis-ecs/5fd87cbbff3f4361b50a26c0c0256664",
+                "networkInterfaces": [],
+                "cpu": "128",
+                "memoryReservation": "128"
+            }
+        ],
+        "cpu": "128",
+        "createdAt": "2024-01-24T22:47:40.442Z",
+        "desiredStatus": "RUNNING",
+        "enableExecuteCommand": false,
+        "group": "family:sinatra-hi",
+        "launchType": "EC2",
+        "lastStatus": "PENDING",
+        "memory": "128",
+        "overrides": {
+            "containerOverrides": [
+                {
+                    "name": "web"
+                }
+            ]
+        },
+        "taskArn": "arn:aws:ecs:us-west-1:844333597536:task/boris-norvatis-ecs/5fd87cbbff3f4361b50a26c0c0256664",
+        "taskDefinitionArn": "arn:aws:ecs:us-west-1:844333597536:task-definition/sinatra-hi:1",
+        "updatedAt": "2024-01-24T22:51:14.95Z",
+        "version": 1
+    }
 }

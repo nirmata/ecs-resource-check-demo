@@ -10,10 +10,16 @@ metadata:
 spec:
   rules:
     - name: required-container-fargate
+      match:
+        any:
+         - source: aws.ecs
+         - detail-type: "AWS API Call via CloudTrail"
       assert:
         any:
-          - message: ECS Cluster use of Fargate or Fargate Spot instances should be used '{{clusterName}}' at '{{clusterArn}}'
+          - message: ECS Cluster use of Fargate or Fargate Spot instances should be used '{{detail.taskArn}}' at '{{detail.clusterArn}}'
             check:
-              capacityProviders:
-                (contains(@, 'FARGATE')): true
-                (contains(@, 'FARGATE_SPOT')): true
+              detail:
+                requestParameters:
+                  launchType:
+                    (contains(@, 'FARGATE')): true
+                    (contains(@, 'FARGATE_SPOT')): true

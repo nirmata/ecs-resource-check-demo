@@ -10,9 +10,15 @@ metadata:
 spec:
   rules:
     - name: ecs-task-definition-ro-root-fs
+      match:
+        all:
+         - source: aws.ecs
+         - detail-type: "AWS API Call via CloudTrail"
       assert:
         any:
-          - message: ECS Task Definitions require the use of readonlyRootFilesystem at taskDefinition '{{taskDefinitionArn}}'
+          - message: ECS Task Definitions require the use of readonlyRootFilesystem at '{{detail.responseElements.taskDefinitionArn}}'
             check:
-              ~.containerDefinitions:
-                readonlyRootFilesystem: true
+              detail:
+                requestParameters:
+                  ~.containerDefinitions:
+                    readonlyRootFilesystem: false

@@ -13,13 +13,12 @@ spec:
       match:
         all:
          - source: aws.ecs
-         - detail:
-             eventName: "RunTask"
+         - detail-type: "ECS Task State Change"
       assert:
         any:
-          - message: ECS Tasks require the use of 'INTERNAL_REGISTRY' at task '{{detail.taskArn}}'
+          - message: ECS Tasks require the use of 'nginx' at task '{{detail.taskArn}}'
             check:
               detail:
-                ~.containerInstances:
+                ~.containers:
                   image:
                     (contains(@, 'nginx')): true

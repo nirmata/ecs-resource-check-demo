@@ -1,0 +1,143 @@
+{
+    "version": "0",
+    "id": "d17a672b-e638-2a11-578f-a941adcd1056",
+    "detail-type": "AWS API Call via CloudTrail",
+    "source": "aws.ecs",
+    "account": "844333597536",
+    "time": "2024-01-25T02:35:37Z",
+    "region": "us-west-1",
+    "resources": [],
+    "detail": {
+        "eventVersion": "1.08",
+        "userIdentity": {
+            "type": "AssumedRole",
+            "principalId": "AROA4JFRUINQPJLRF3ZGH:boris.kurktchiev@nirmata.com",
+            "arn": "arn:aws:sts::844333597536:assumed-role/AWSReservedSSO_AWSAdministratorAccess_d270afaa03aa789f/boris.kurktchiev@nirmata.com",
+            "accountId": "844333597536",
+            "accessKeyId": "ASIA4JFRUINQOB3NHFUA",
+            "sessionContext": {
+                "sessionIssuer": {
+                    "type": "Role",
+                    "principalId": "AROA4JFRUINQPJLRF3ZGH",
+                    "arn": "arn:aws:iam::844333597536:role/aws-reserved/sso.amazonaws.com/us-east-2/AWSReservedSSO_AWSAdministratorAccess_d270afaa03aa789f",
+                    "accountId": "844333597536",
+                    "userName": "AWSReservedSSO_AWSAdministratorAccess_d270afaa03aa789f"
+                },
+                "webIdFederationData": {},
+                "attributes": {
+                    "creationDate": "2024-01-25T02:21:01Z",
+                    "mfaAuthenticated": "false"
+                }
+            }
+        },
+        "eventTime": "2024-01-25T02:35:37Z",
+        "eventSource": "ecs.amazonaws.com",
+        "eventName": "RunTask",
+        "awsRegion": "us-west-1",
+        "sourceIPAddress": "136.54.30.107",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "requestParameters": {
+            "platformVersion": "LATEST",
+            "count": 1,
+            "launchType": "FARGATE",
+            "networkConfiguration": {
+                "awsvpcConfiguration": {
+                    "assignPublicIp": "ENABLED",
+                    "securityGroups": [
+                        "sg-90fc06ef"
+                    ],
+                    "subnets": [
+                        "subnet-24778d42",
+                        "subnet-3ee0f665"
+                    ]
+                }
+            },
+            "cluster": "boris-norvatis-ecs",
+            "enableExecuteCommand": false,
+            "taskDefinition": "arn:aws:ecs:us-west-1:844333597536:task-definition/nginx:2",
+            "enableECSManagedTags": true
+        },
+        "responseElements": {
+            "failures": [],
+            "tasks": [
+                {
+                    "createdAt": "Jan 25, 2024, 2:35:37 AM",
+                    "memory": "2048",
+                    "version": 1,
+                    "ephemeralStorage": {
+                        "sizeInGiB": 20
+                    },
+                    "desiredStatus": "RUNNING",
+                    "lastStatus": "PROVISIONING",
+                    "platformFamily": "Linux",
+                    "taskArn": "arn:aws:ecs:us-west-1:844333597536:task/boris-norvatis-ecs/e619850b7202430c8e1ca10a6e652cb4",
+                    "taskDefinitionArn": "arn:aws:ecs:us-west-1:844333597536:task-definition/nginx:2",
+                    "attachments": [
+                        {
+                            "status": "PRECREATED",
+                            "type": "ElasticNetworkInterface",
+                            "details": [
+                                {
+                                    "name": "subnetId",
+                                    "value": "subnet-24778d42"
+                                }
+                            ],
+                            "id": "1c1b6606-b2c0-45d8-9975-342b4939e247"
+                        }
+                    ],
+                    "clusterArn": "arn:aws:ecs:us-west-1:844333597536:cluster/boris-norvatis-ecs",
+                    "availabilityZone": "us-west-1b",
+                    "overrides": {
+                        "containerOverrides": [
+                            {
+                                "name": "nginx"
+                            }
+                        ],
+                        "inferenceAcceleratorOverrides": []
+                    },
+                    "enableExecuteCommand": false,
+                    "group": "family:nginx",
+                    "containers": [
+                        {
+                            "networkInterfaces": [],
+                            "taskArn": "arn:aws:ecs:us-west-1:844333597536:task/boris-norvatis-ecs/e619850b7202430c8e1ca10a6e652cb4",
+                            "containerArn": "arn:aws:ecs:us-west-1:844333597536:container/boris-norvatis-ecs/e619850b7202430c8e1ca10a6e652cb4/d5342222-31f7-4f08-8e13-98235a16ed78",
+                            "image": "844333597536.dkr.ecr.us-west-1.amazonaws.com/nirmata/nginx:unsigned",
+                            "cpu": "0",
+                            "name": "nginx",
+                            "lastStatus": "PENDING"
+                        }
+                    ],
+                    "cpu": "512",
+                    "tags": [
+                        {
+                            "key": "aws:ecs:clusterName",
+                            "value": "boris-norvatis-ecs"
+                        }
+                    ],
+                    "launchType": "FARGATE",
+                    "attributes": [
+                        {
+                            "value": "x86_64",
+                            "name": "ecs.cpu-architecture"
+                        }
+                    ],
+                    "platformVersion": "1.4.0"
+                }
+            ]
+        },
+        "requestID": "9d6b1fa9-1faf-4432-84ca-c73b49dfa56b",
+        "eventID": "076133c0-a648-4aa6-8583-e5e267a61980",
+        "readOnly": false,
+        "eventType": "AwsApiCall",
+        "managementEvent": true,
+        "recipientAccountId": "844333597536",
+        "eventCategory": "Management",
+        "tlsDetails": {
+            "tlsVersion": "TLSv1.3",
+            "cipherSuite": "TLS_AES_128_GCM_SHA256",
+            "clientProvidedHostHeader": "ecs.us-west-1.amazonaws.com"
+        },
+        "sessionCredentialFromConsole": "true"
+    }
+}

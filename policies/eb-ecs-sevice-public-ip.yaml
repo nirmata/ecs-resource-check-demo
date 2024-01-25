@@ -13,8 +13,7 @@ spec:
       match:
         all:
          - source: aws.ecs
-         - detail:
-             eventName: "CreateService"
+         - detail-type: "AWS API Call via CloudTrail"
       assert:
         all:
         - message: "ECS Services '{{detail.requestParameters.serviceName}}' should not use public IP"
