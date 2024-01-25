@@ -12,15 +12,14 @@ exports.handler = async (event, context) => {
 
   try {
     console.log(`Got event: ${JSON.stringify(event)}`);
-    console.log(`Got context: ${JSON.stringify(context)}`);
-
-    console.log(`Got event payload: ${JSON.stringify(event.detail)}`);
+    // console.log(`Got context: ${JSON.stringify(context)}`);
+    // console.log(`Got event payload: ${JSON.stringify(event.detail)}`);
 
     const taskArn = event.detail.taskArn;
     const clusterArn = event.detail.clusterArn;
 
-    console.log(`Task ARN: ${taskArn}`);
-    console.log(`Cluster ARN: ${clusterArn}`);
+    // console.log(`Task ARN: ${taskArn}`);
+    // console.log(`Cluster ARN: ${clusterArn}`);
 
     const response = await ecs.describeTasks({ tasks: [taskArn], cluster: clusterArn });
 

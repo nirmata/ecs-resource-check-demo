@@ -21,5 +21,4 @@ spec:
               detail:
                 requestParameters:
                   launchType:
-                    (contains(@, 'FARGATE')): true
-                    (contains(@, 'FARGATE_SPOT')): true
+                    (contains(@, 'FARGATE')): false

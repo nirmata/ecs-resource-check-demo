@@ -1,128 +1,128 @@
 {
-    "version": "0",
-    "id": "ccb63791-3e1a-d095-b92c-95bbffd49c33",
-    "detail-type": "AWS API Call via CloudTrail",
-    "source": "aws.ecs",
-    "account": "844333597536",
-    "time": "2024-01-25T02:51:13Z",
-    "region": "us-west-1",
-    "resources": [],
-    "detail": {
-        "eventVersion": "1.08",
-        "userIdentity": {
-            "type": "AssumedRole",
-            "principalId": "AROA4JFRUINQPJLRF3ZGH:boris.kurktchiev@nirmata.com",
-            "arn": "arn:aws:sts::844333597536:assumed-role/AWSReservedSSO_AWSAdministratorAccess_d270afaa03aa789f/boris.kurktchiev@nirmata.com",
-            "accountId": "844333597536",
-            "accessKeyId": "ASIA4JFRUINQGM3TQYHB",
-            "sessionContext": {
-                "sessionIssuer": {
-                    "type": "Role",
-                    "principalId": "AROA4JFRUINQPJLRF3ZGH",
-                    "arn": "arn:aws:iam::844333597536:role/aws-reserved/sso.amazonaws.com/us-east-2/AWSReservedSSO_AWSAdministratorAccess_d270afaa03aa789f",
-                    "accountId": "844333597536",
-                    "userName": "AWSReservedSSO_AWSAdministratorAccess_d270afaa03aa789f"
-                },
-                "webIdFederationData": {},
-                "attributes": {
-                    "creationDate": "2024-01-25T02:21:01Z",
-                    "mfaAuthenticated": "false"
-                }
-            }
+  "version": "0",
+  "id": "ccb63791-3e1a-d095-b92c-95bbffd49c33",
+  "detail-type": "AWS API Call via CloudTrail",
+  "source": "aws.ecs",
+  "account": "844333597536",
+  "time": "2024-01-25T02:51:13Z",
+  "region": "us-west-1",
+  "resources": [],
+  "detail": {
+    "eventVersion": "1.08",
+    "userIdentity": {
+      "type": "AssumedRole",
+      "principalId": "AROA4JFRUINQPJLRF3ZGH:boris.kurktchiev@nirmata.com",
+      "arn": "arn:aws:sts::844333597536:assumed-role/AWSReservedSSO_AWSAdministratorAccess_d270afaa03aa789f/boris.kurktchiev@nirmata.com",
+      "accountId": "844333597536",
+      "accessKeyId": "ASIA4JFRUINQGM3TQYHB",
+      "sessionContext": {
+        "sessionIssuer": {
+          "type": "Role",
+          "principalId": "AROA4JFRUINQPJLRF3ZGH",
+          "arn": "arn:aws:iam::844333597536:role/aws-reserved/sso.amazonaws.com/us-east-2/AWSReservedSSO_AWSAdministratorAccess_d270afaa03aa789f",
+          "accountId": "844333597536",
+          "userName": "AWSReservedSSO_AWSAdministratorAccess_d270afaa03aa789f"
         },
-        "eventTime": "2024-01-25T02:51:13Z",
-        "eventSource": "ecs.amazonaws.com",
-        "eventName": "RegisterTaskDefinition",
-        "awsRegion": "us-west-1",
-        "sourceIPAddress": "136.54.30.107",
-        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        "requestParameters": {
-            "family": "sinatra-hi",
-            "executionRoleArn": "",
-            "containerDefinitions": [
-                {
-                    "name": "web",
-                    "image": "tongueroo/sinatra:latest",
-                    "cpu": 128,
-                    "memoryReservation": 128,
-                    "portMappings": [
-                        {
-                            "name": "web-4567-tcp",
-                            "containerPort": 4567,
-                            "hostPort": 0,
-                            "protocol": "tcp"
-                        }
-                    ],
-                    "essential": true,
-                    "command": [
-                        "ruby",
-                        "hi.rb"
-                    ],
-                    "readonlyRootFilesystem": true
-                }
+        "webIdFederationData": {},
+        "attributes": {
+          "creationDate": "2024-01-25T02:21:01Z",
+          "mfaAuthenticated": "false"
+        }
+      }
+    },
+    "eventTime": "2024-01-25T02:51:13Z",
+    "eventSource": "ecs.amazonaws.com",
+    "eventName": "RegisterTaskDefinition",
+    "awsRegion": "us-west-1",
+    "sourceIPAddress": "136.54.30.107",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "requestParameters": {
+      "family": "sinatra-hi",
+      "executionRoleArn": "",
+      "containerDefinitions": [
+        {
+          "name": "web",
+          "image": "tongueroo/sinatra:latest",
+          "cpu": 128,
+          "memoryReservation": 128,
+          "portMappings": [
+            {
+              "name": "web-4567-tcp",
+              "containerPort": 4567,
+              "hostPort": 0,
+              "protocol": "tcp"
+            }
+          ],
+          "essential": true,
+          "command": [
+            "ruby",
+            "hi.rb"
+          ],
+          "readonlyRootFilesystem": true
+        }
+      ],
+      "placementConstraints": []
+    },
+    "responseElements": {
+      "taskDefinition": {
+        "taskDefinitionArn": "arn:aws:ecs:us-west-1:844333597536:task-definition/sinatra-hi:2",
+        "containerDefinitions": [
+          {
+            "name": "web",
+            "image": "tongueroo/sinatra:latest",
+            "cpu": 128,
+            "memoryReservation": 128,
+            "portMappings": [
+              {
+                "name": "web-4567-tcp",
+                "containerPort": 4567,
+                "hostPort": 0,
+                "protocol": "tcp"
+              }
             ],
-            "placementConstraints": []
-        },
-        "responseElements": {
-            "taskDefinition": {
-                "taskDefinitionArn": "arn:aws:ecs:us-west-1:844333597536:task-definition/sinatra-hi:2",
-                "containerDefinitions": [
-                    {
-                        "name": "web",
-                        "image": "tongueroo/sinatra:latest",
-                        "cpu": 128,
-                        "memoryReservation": 128,
-                        "portMappings": [
-                            {
-                                "name": "web-4567-tcp",
-                                "containerPort": 4567,
-                                "hostPort": 0,
-                                "protocol": "tcp"
-                            }
-                        ],
-                        "essential": true,
-                        "command": [
-                            "ruby",
-                            "hi.rb"
-                        ],
-                        "environment": "HIDDEN_DUE_TO_SECURITY_REASONS",
-                        "mountPoints": [],
-                        "volumesFrom": [],
-                        "readonlyRootFilesystem": true
-                    }
-                ],
-                "family": "sinatra-hi",
-                "revision": 2,
-                "volumes": [],
-                "status": "ACTIVE",
-                "requiresAttributes": [
-                    {
-                        "name": "com.amazonaws.ecs.capability.docker-remote-api.1.17"
-                    },
-                    {
-                        "name": "com.amazonaws.ecs.capability.docker-remote-api.1.21"
-                    }
-                ],
-                "placementConstraints": [],
-                "compatibilities": [
-                    "EC2"
-                ],
-                "registeredAt": "Jan 25, 2024, 2:51:13 AM",
-                "registeredBy": "arn:aws:sts::844333597536:assumed-role/AWSReservedSSO_AWSAdministratorAccess_d270afaa03aa789f/boris.kurktchiev@nirmata.com"
-            }
-        },
-        "requestID": "68d28021-d96d-47e6-9760-bc146e72b553",
-        "eventID": "0ddd0a88-30f5-4f5d-be82-189ead3844f4",
-        "readOnly": false,
-        "eventType": "AwsApiCall",
-        "managementEvent": true,
-        "recipientAccountId": "844333597536",
-        "eventCategory": "Management",
-        "tlsDetails": {
-            "tlsVersion": "TLSv1.3",
-            "cipherSuite": "TLS_AES_128_GCM_SHA256",
-            "clientProvidedHostHeader": "ecs.us-west-1.amazonaws.com"
-        },
-        "sessionCredentialFromConsole": "true"
-    }
+            "essential": true,
+            "command": [
+              "ruby",
+              "hi.rb"
+            ],
+            "environment": "HIDDEN_DUE_TO_SECURITY_REASONS",
+            "mountPoints": [],
+            "volumesFrom": [],
+            "readonlyRootFilesystem": true
+          }
+        ],
+        "family": "sinatra-hi",
+        "revision": 2,
+        "volumes": [],
+        "status": "ACTIVE",
+        "requiresAttributes": [
+          {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.17"
+          },
+          {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.21"
+          }
+        ],
+        "placementConstraints": [],
+        "compatibilities": [
+          "EC2"
+        ],
+        "registeredAt": "Jan 25, 2024, 2:51:13 AM",
+        "registeredBy": "arn:aws:sts::844333597536:assumed-role/AWSReservedSSO_AWSAdministratorAccess_d270afaa03aa789f/boris.kurktchiev@nirmata.com"
+      }
+    },
+    "requestID": "68d28021-d96d-47e6-9760-bc146e72b553",
+    "eventID": "0ddd0a88-30f5-4f5d-be82-189ead3844f4",
+    "readOnly": false,
+    "eventType": "AwsApiCall",
+    "managementEvent": true,
+    "recipientAccountId": "844333597536",
+    "eventCategory": "Management",
+    "tlsDetails": {
+      "tlsVersion": "TLSv1.3",
+      "cipherSuite": "TLS_AES_128_GCM_SHA256",
+      "clientProvidedHostHeader": "ecs.us-west-1.amazonaws.com"
+    },
+    "sessionCredentialFromConsole": "true"
+  }
 }

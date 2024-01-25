@@ -12,7 +12,7 @@ COPY ./lambda/src/app-kyverno-json.js ./app.js
 RUN npm install -y && npm install -g js-yaml -y && npm install -g axios  -y
 
 RUN mkdir /policies
-COPY ./policies/eb-ecs-*.yaml /policies/
+COPY ./policies/eb-*.yaml /policies/
 
 ENV HOME=/tmp
 ENV RUN_COMMAND=kyverno-json

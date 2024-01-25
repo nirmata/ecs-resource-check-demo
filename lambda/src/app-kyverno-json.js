@@ -18,9 +18,9 @@ exports.handler = async (event, context) => {
 
   try {
     console.log(`Got event: ${JSON.stringify(event)}`);
-    console.log(`Webhook url: ${url}`);
-    console.log(`Event resources: ${JSON.stringify(event.resources)}`);
-    console.log(`Got event payload: ${JSON.stringify(event.detail)}`);
+    // console.log(`Webhook url: ${url}`);
+    // console.log(`Event resources: ${JSON.stringify(event.resources)}`);
+    // console.log(`Got event payload: ${JSON.stringify(event.detail)}`);
 
     const resourceYAML = YAML.dump(event);
     console.log(`Resource YAML: ${resourceYAML}`);
@@ -29,9 +29,9 @@ exports.handler = async (event, context) => {
       fs.mkdirSync(resourceDir);
     }
 
-   
+
     fs.writeFileSync("/tmp/resources/resource.yaml", resourceYAML, "utf8");
-   
+
     // Run a CLI command to verify the task
     const command = `/bin/kyverno-json scan --policy /policies/ --payload /tmp/resources/resource.yaml`;
     const results = execSync(command);
@@ -144,7 +144,7 @@ exports.handler = async (event, context) => {
       });
       console.log('POST response: ', postResponse);
     }
-  
+
 
     return;
   } catch (err) {

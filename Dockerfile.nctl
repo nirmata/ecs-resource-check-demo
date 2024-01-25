@@ -12,7 +12,7 @@ COPY ./lambda/src/app-nctl.js ./app.js
 RUN npm install && npm install -g js-yaml
 
 RUN mkdir /policies
-COPY ./policies/eb-ecs-*.yaml /policies/
+COPY ./policies/eb-*.yaml /policies/
 
 ENV HOME=/tmp
 ENV RUN_COMMAND=nctl
