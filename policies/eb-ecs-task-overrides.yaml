@@ -14,8 +14,8 @@ spec:
         all:
          - source: aws.ecs
          - detail-type: "ECS Task State Change"
-         - detail:
-             (contains(eventName, 'RunTask') || contains(eventName, 'CreateTask')): true
+        #  - detail:
+        #      (contains(eventName, 'RunTask') || contains(eventName, 'CreateTask')): true
       assert:
         any:
           - message: ECS Tasks does not allow overriding container 'command' at task '{{detail.taskArn}}'
