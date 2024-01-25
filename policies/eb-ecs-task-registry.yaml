@@ -14,8 +14,8 @@ spec:
         all:
          - source: aws.ecs
          - detail-type: "ECS Task State Change"
-        #  - detail:
-        #      (contains(eventName, 'RunTask') || contains(eventName, 'CreateTask')): true
+         - detail:
+             (contains(desiredStatus, 'STOPPED')): false
       assert:
         any:
           - message: ECS Tasks require the use of 'nginx' at task '{{detail.taskArn}}'

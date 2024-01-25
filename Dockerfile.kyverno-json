@@ -1,6 +1,4 @@
 #!/bin/bash
-# Build for ARM64
-# Builder
 FROM amazon/aws-lambda-nodejs:18
 RUN yum -y update && yum -y install tar gzip && yum clean all
 
