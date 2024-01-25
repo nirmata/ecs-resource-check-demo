@@ -13,14 +13,13 @@ spec:
       match:
         all:
          - source: aws.ecs
-         - detail-type: "AWS API Call via CloudTrail"
-         - detail:
-             (contains(eventName, 'RunTask') || contains(eventName, 'CreateTask')): true
+         - detail-type: "ECS Task State Change"
+        #  - detail:
+        #      (contains(eventName, 'RunTask') || contains(eventName, 'CreateTask')): true
       assert:
         all:
           - message: ECS Cluster use of Fargate or Fargate Spot instances should not be used at '{{detail.requestParameters.taskDefinition}}'
             check:
               detail:
-                requestParameters:
-                  launchType:
-                    (contains(@, 'FARGATE') || contains(@, 'FARGATE SPOT')): false
+                launchType:
+                  (contains(@, 'FARGATE') || contains(@, 'FARGATE SPOT')): false

@@ -15,13 +15,15 @@ spec:
          - source: aws.ecs
          - detail-type: "AWS API Call via CloudTrail"
          - detail:
-             (contains(eventName, 'RunTask') || contains(eventName, 'CreateTask')): true
+             (contains(eventName, 'CreateService')): true
       assert:
         all:
           - message: "ECS Services '{{detail.requestParameters.serviceName}}' should not use public IP"
             check:
               detail:
-                requestParameters:
-                  networkConfiguration:
-                    awsvpcConfiguration:
-                      assignPublicIp: DISABLED
+                responseElements:
+                  service:
+                    ~.deployments:
+                      networkConfiguration:
+                        awsvpcConfiguration:
+                          assignPublicIp: DISABLED
