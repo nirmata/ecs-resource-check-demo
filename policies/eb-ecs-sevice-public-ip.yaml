@@ -18,10 +18,10 @@ spec:
              (contains(eventName, 'RunTask') || contains(eventName, 'CreateTask')): true
       assert:
         all:
-        - message: "ECS Services '{{detail.requestParameters.serviceName}}' should not use public IP"
-          check:
-            detail:
-              requestParameters:
-                networkConfiguration:
-                  awsvpcConfiguration:
-                    assignPublicIp: DISABLED
+          - message: "ECS Services '{{detail.requestParameters.serviceName}}' should not use public IP"
+            check:
+              detail:
+                requestParameters:
+                  networkConfiguration:
+                    awsvpcConfiguration:
+                      assignPublicIp: DISABLED
