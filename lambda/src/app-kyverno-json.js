@@ -18,9 +18,9 @@ exports.handler = async (event, context) => {
 
   try {
     console.log(`Got event: ${JSON.stringify(event)}`);
-    // console.log(`Webhook url: ${url}`);
-    // console.log(`Event resources: ${JSON.stringify(event.resources)}`);
-    // console.log(`Got event payload: ${JSON.stringify(event.detail)}`);
+    console.log(`Webhook url: ${url}`);
+    console.log(`Event resources: ${JSON.stringify(event.resources)}`);
+    console.log(`Got event payload: ${JSON.stringify(event.detail)}`);
 
     const resourceYAML = YAML.dump(event);
     console.log(`Resource YAML: ${resourceYAML}`);
