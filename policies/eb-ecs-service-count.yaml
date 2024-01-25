@@ -14,6 +14,8 @@ spec:
         all:
          - source: aws.ecs
          - detail-type: "AWS API Call via CloudTrail"
+         - detail:
+             (contains(eventName, 'CreateService')): true
       assert:
         all:
           - message: ECS Services cannot have greater than 10 count without approval '{{detail.requestParameters.serviceName}}'
