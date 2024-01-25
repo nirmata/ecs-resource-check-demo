@@ -1,14 +1,12 @@
 const { ECS } = require("@aws-sdk/client-ecs");
-const { execSync } = require('child_process');
+const { execSync } = require("child_process");
 const fs = require("fs");
-const YAML = require('js-yaml');
-
+const YAML = require("js-yaml");
 
 const ecs = new ECS();
 
 exports.handler = async (event, context) => {
-
-  const resourceDir = '/tmp/resources';
+  const resourceDir = "/tmp/resources";
 
   try {
     console.log(`Got event: ${JSON.stringify(event)}`);
@@ -21,7 +19,10 @@ exports.handler = async (event, context) => {
     console.log(`Task ARN: ${taskArn}`);
     console.log(`Cluster ARN: ${clusterArn}`);
 
-    const response = await ecs.describeTasks({ tasks: [taskArn], cluster: clusterArn });
+    const response = await ecs.describeTasks({
+      tasks: [taskArn],
+      cluster: clusterArn,
+    });
 
     console.log(`Response: ${JSON.stringify(response)}`);
 
@@ -43,7 +44,6 @@ exports.handler = async (event, context) => {
     resource.metadata.name = taskArn;
     resource.spec = response.tasks[0];
 
-
     console.log(`Resource: ${JSON.stringify(resource)}`);
 
     const resourceYAML = YAML.dump(resource);
@@ -60,7 +60,7 @@ exports.handler = async (event, context) => {
     const output = execSync(command);
     console.log(output.toString());
 
-    if(output.includes("failed to verify image")) {
+    if (output.includes("failed to verify image")) {
       console.error(`Failed to verify image ${containerImage}`);
       return "Fail";
     }
