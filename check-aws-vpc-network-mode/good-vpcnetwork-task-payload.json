@@ -1,0 +1,117 @@
+{
+    "version": "0",
+    "id": "cc9c55f0-002c-fe74-fd10-32b92c73d03f",
+    "detail-type": "AWS API Call via CloudTrail",
+    "source": "aws.ecs",
+    "account": "844333597536",
+    "time": "2024-02-05T10:23:51Z",
+    "region": "us-west-1",
+    "resources": [],
+    "detail": {
+        "eventVersion": "1.09",
+        "userIdentity": {
+            "type": "IAMUser",
+            "principalId": "AIDA4JFRUINQP7JJKDU27",
+            "arn": "arn:aws:iam::844333597536:user/anudeep",
+            "accountId": "844333597536",
+            "accessKeyId": "AKIA4JFRUINQK33PW4RH",
+            "userName": "anudeep"
+        },
+        "eventTime": "2024-02-05T10:23:51Z",
+        "eventSource": "ecs.amazonaws.com",
+        "eventName": "RegisterTaskDefinition",
+        "awsRegion": "us-west-1",
+        "sourceIPAddress": "49.204.190.50",
+        "userAgent": "APN/1.0 HashiCorp/1.0 Terraform/1.5.7 (+https://www.terraform.io) terraform-provider-aws/4.67.0 (+https://registry.terraform.io/providers/hashicorp/aws) aws-sdk-go/1.44.261 (go1.19.8; darwin; arm64)",
+        "requestParameters": {
+            "family": "service",
+            "networkMode": "awsvpc",
+            "containerDefinitions": [
+                {
+                    "name": "nginx",
+                    "image": "nginx:1.23.1",
+                    "cpu": 512,
+                    "memory": 512,
+                    "portMappings": [
+                        {
+                            "containerPort": 80,
+                            "hostPort": 80
+                        }
+                    ],
+                    "essential": true
+                }
+            ],
+            "requiresCompatibilities": [
+                "EC2"
+            ],
+            "cpu": "512",
+            "memory": "512"
+        },
+        "responseElements": {
+            "taskDefinition": {
+                "taskDefinitionArn": "arn:aws:ecs:us-west-1:844333597536:task-definition/service:21",
+                "containerDefinitions": [
+                    {
+                        "name": "nginx",
+                        "image": "nginx:1.23.1",
+                        "cpu": 512,
+                        "memory": 512,
+                        "portMappings": [
+                            {
+                                "containerPort": 80,
+                                "hostPort": 80,
+                                "protocol": "tcp"
+                            }
+                        ],
+                        "essential": true,
+                        "environment": "HIDDEN_DUE_TO_SECURITY_REASONS",
+                        "mountPoints": [],
+                        "volumesFrom": []
+                    }
+                ],
+                "family": "service",
+                "networkMode": "awsvpc",
+                "revision": 21,
+                "volumes": [],
+                "status": "ACTIVE",
+                "requiresAttributes": [
+                    {
+                        "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+                    },
+                    {
+                        "name": "ecs.capability.task-eni"
+                    }
+                ],
+                "placementConstraints": [],
+                "compatibilities": [
+                    "EC2"
+                ],
+                "requiresCompatibilities": [
+                    "EC2"
+                ],
+                "cpu": "512",
+                "memory": "512",
+                "registeredAt": "Feb 5, 2024, 10:23:51 AM",
+                "registeredBy": "arn:aws:iam::844333597536:user/anudeep"
+            }
+        },
+        "requestID": "1a8ce5b5-4911-438d-bd43-643b0465e0c1",
+        "eventID": "4cd4a411-f0a5-4956-b336-96378f0cbf72",
+        "readOnly": false,
+        "eventType": "AwsApiCall",
+        "managementEvent": true,
+        "recipientAccountId": "844333597536",
+        "eventCategory": "Management",
+        "tlsDetails": {
+            "tlsVersion": "TLSv1.3",
+            "cipherSuite": "TLS_AES_128_GCM_SHA256",
+            "clientProvidedHostHeader": "ecs.us-west-1.amazonaws.com"
+        }
+    }
+}
+
+
+
+
+
+
