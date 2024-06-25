@@ -2,7 +2,7 @@
 FROM amazon/aws-lambda-nodejs:18
 RUN yum -y update && yum -y install unzip && yum clean all
 
-RUN curl -sSL https://nirmata-downloads.s3.us-east-2.amazonaws.com/nctl/nctl_3.3.9/nctl_3.3.9_linux_64-bit.zip -o nctl.zip &&  unzip nctl.zip && mv nctl /bin
+RUN curl -LO https://nirmata-downloads.s3.us-east-2.amazonaws.com/nctl/nctl_4.1.0/nctl_4.1.0_linux_amd64.zip -o nctl.zip &&  unzip nctl.zip && mv nctl /bin
 RUN chown -R root:root /bin/nctl
 
 COPY ./lambda/src/package*.json ./

@@ -2,7 +2,7 @@
 FROM amazon/aws-lambda-nodejs:18
 RUN yum -y update && yum -y install tar gzip && yum clean all
 
-RUN curl -sSL https://github.com/kyverno/kyverno-json/releases/download/v0.0.2/kyverno-json_linux_amd64.tar.gz -o kyverno-json.tar.gz && tar xvf ./kyverno-json.tar.gz && mv ./kyverno-json /bin
+RUN curl -sSL https://github.com/kyverno/kyverno-json/releases/download/v0.0.3/kyverno-json_linux_amd64.tar.gz -o kyverno-json.tar.gz && tar xvf ./kyverno-json.tar.gz && mv ./kyverno-json /bin
 RUN chown -R root:root /bin/kyverno-json
 
 COPY ./lambda/src/package*.json ./
