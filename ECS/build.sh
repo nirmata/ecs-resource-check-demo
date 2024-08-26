@@ -5,7 +5,8 @@ if [[ -z ${1} ]]; then
   exit 1
 fi
 
-aws ecr get-login-password --region us-west-1 | docker login --username AWS --password-stdin 844333597536.dkr.ecr.us-west-1.amazonaws.com
+# This is specific to Nirmata's AWS account
+aws ecr get-login-password --region us-west-1 --profile=nirmata | docker login --username AWS --password-stdin 844333597536.dkr.ecr.us-west-1.amazonaws.com
 
 docker buildx build . -t ecs-lambda-function --no-cache=true --provenance=false -f Dockerfile.nctl
 docker tag ecs-lambda-function 844333597536.dkr.ecr.us-west-1.amazonaws.com/nirmata/ecs-lambda-function:${1}-nctl

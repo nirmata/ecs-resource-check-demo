@@ -1,14 +1,11 @@
-const {
-  EventBridgeClient,
-  PutEventsCommand,
-} = require("@aws-sdk/client-eventbridge");
+import { EventBridgeClient, PutEventsCommand } from "@aws-sdk/client-eventbridge";
 
-const { execSync } = require("child_process");
-const fs = require("fs");
-const YAML = require("js-yaml");
-const axios = require("axios");
+import { execSync } from "child_process";
+import { existsSync, mkdirSync, writeFileSync } from "fs";
+import { dump } from "js-yaml";
+//const axios = require("axios");
 
-exports.handler = async (event, context) => {
+export async function handler(event, context) {
   const resourceDir = "/tmp/resources";
   const user = process.env.NPM_USER || null;
   const token = process.env.NPM_TOKEN || null;
@@ -21,35 +18,35 @@ exports.handler = async (event, context) => {
     console.log(`Event resources: ${JSON.stringify(event.resources)}`);
     console.log(`Got event payload: ${JSON.stringify(event.detail)}`);
 
-    const resourceYAML = YAML.dump(event);
+    const resourceYAML = dump(event);
     console.log(`Resource YAML: ${resourceYAML}`);
 
-    if (!fs.existsSync(resourceDir)) {
-      fs.mkdirSync(resourceDir);
+    if (!existsSync(resourceDir)) {
+      mkdirSync(resourceDir);
     }
 
-    fs.writeFileSync("/tmp/resources/resource.yaml", resourceYAML, "utf8");
+    writeFileSync("/tmp/resources/resource.yaml", resourceYAML, "utf8");
 
     // Run a CLI command to verify the task
     const command = `/bin/nctl scan -p /policies/ -r /tmp/resources/resource.yaml --details --publish --token ${token} --user ${user}`;
     const results = execSync(command);
     console.log(`Got results: ${results.toString()}`);
 
-    const breakpoint = "- ";
-    const splittedResults = results.toString().split(breakpoint);
-    console.log(`Got splittedResults: ${splittedResults.toString()}`);
+    // const breakpoint = "- ";
+    // const splittedResults = results.toString().split(breakpoint);
+    // console.log(`Got splittedResults: ${splittedResults.toString()}`);
 
-    if (splittedResults.length > 1) {
-      splittedResults.shift();
-    } else {
-      console.log(`No results found`);
-      return;
-    }
+    // if (splittedResults.length > 1) {
+    //   splittedResults.shift();
+    // } else {
+    //   console.log(`No results found`);
+    //   return;
+    // }
 
-    var details = new Object();
-    details.results = splittedResults;
+    // var details = new Object();
+    // details.results = splittedResults;
 
-    console.log(`Got details: ${JSON.stringify(details)}`);
+    // console.log(`Got details: ${JSON.stringify(details)}`);
 
     var eventName = "--";
     if (event.detail.eventName) {
@@ -145,4 +142,4 @@ exports.handler = async (event, context) => {
     console.error(err);
     throw err;
   }
-};
+}
