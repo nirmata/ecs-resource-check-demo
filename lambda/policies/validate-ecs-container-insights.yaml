@@ -1,7 +1,7 @@
 apiVersion: json.kyverno.io/v1alpha1
 kind: ValidatingPolicy
 metadata:
-  name: validate-ecs-container-insights-enabled
+  name: validate-ecs-container-insights-enabled-lambda
   annotations:
     policies.kyverno.io/title: Validate ECS Container Insights are Enabled
     policies.kyverno.io/category: ECS Best Practices
@@ -25,5 +25,5 @@ spec:
               detail:
                 responseElements:
                   cluster:
-                    ~.(setting):
-                      (name != 'containerInsights' || value == 'enabled'): true
+                    ~.(settings):
+                      (value == 'enabled'): true

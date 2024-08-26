@@ -1,7 +1,7 @@
 apiVersion: json.kyverno.io/v1alpha1
 kind: ValidatingPolicy
 metadata:
-  name: validate-ecs-task-public-ip
+  name: validate-ecs-task-public-ip-terraform
   labels:
     ecs.aws.tags.kyverno.io: ecs-service
   annotations:
