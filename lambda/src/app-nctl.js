@@ -15,12 +15,12 @@ exports.handler = async (event, context) => {
   const client = new EventBridgeClient({});
 
   try {
-    console.log(`Got event: ${JSON.stringify(event)}`);
-    console.log(`Event resources: ${JSON.stringify(event.resources)}`);
-    console.log(`Got event payload: ${JSON.stringify(event.detail)}`);
+    // console.log(`Got event: ${JSON.stringify(event)}`);
+    // console.log(`Event resources: ${JSON.stringify(event.resources)}`);
+    // console.log(`Got event payload: ${JSON.stringify(event.detail)}`);
 
     const resourceYAML = YAML.dump(event);
-    console.log(`Resource YAML: ${resourceYAML}`);
+    // console.log(`Resource YAML: ${resourceYAML}`);
 
     if (!fs.existsSync(resourceDir)) {
       fs.mkdirSync(resourceDir);
