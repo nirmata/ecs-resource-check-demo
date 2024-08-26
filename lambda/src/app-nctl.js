@@ -29,7 +29,7 @@ exports.handler = async (event, context) => {
     fs.writeFileSync("/tmp/resources/resource.yaml", resourceYAML, "utf8");
 
     // Run a CLI command to verify the task
-    const command = `/bin/nctl scan json -p /policies/ -r /tmp/resources/resource.yaml --details --publish --token ${token} --userid ${user}`;
+    const command = `/bin/nctl scan json -p /policies/ -r /tmp/resources/resource.yaml --details --publish --token ${token}`;
     const results = execSync(command);
     console.log(`Got results: ${results.toString()}`);
 
