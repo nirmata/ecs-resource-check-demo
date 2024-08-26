@@ -1,0 +1,30 @@
+name: Periodic scan of AWS ECS Resources with NCTL
+on:
+  schedule:
+    - cron: "0/15 * * * *"
+
+env:
+  AWS_REGION: MY_AWS_REGION
+
+permissions:
+  contents: read
+
+jobs:
+  pull-aws-resources:
+    name: Pull AWS Resources
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Configure AWS credentials
+      uses: sagarsthorat/aws-cli@v1
+      with:
+        # AWS Default Region
+        region: ${{ env.AWS_REGION }}
+        # AWS Access Key ID
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        # AWS Secret Access Key
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        # AWS CLI Version
+        aws-cli-version: latest
+        # AWS CLI Output Format
+        output-format: json
