@@ -1,12 +1,10 @@
 const {
-  EventBridgeClient,
-  PutEventsCommand,
+  EventBridgeClient
 } = require("@aws-sdk/client-eventbridge");
 
 const { execSync } = require("child_process");
 const fs = require("fs");
 const YAML = require("js-yaml");
-// const axios = require("axios");
 
 exports.handler = async (event, context) => {
   const resourceDir = "/tmp/resources";
@@ -15,11 +13,13 @@ exports.handler = async (event, context) => {
   const client = new EventBridgeClient({});
 
   try {
+    // Debug helpers
     // console.log(`Got event: ${JSON.stringify(event)}`);
     // console.log(`Event resources: ${JSON.stringify(event.resources)}`);
     // console.log(`Got event payload: ${JSON.stringify(event.detail)}`);
 
     const resourceYAML = YAML.dump(event);
+    // Debug helpers
     // console.log(`Resource YAML: ${resourceYAML}`);
 
     if (!fs.existsSync(resourceDir)) {
@@ -33,6 +33,7 @@ exports.handler = async (event, context) => {
       const command = `/bin/nctl scan json -p /policies/ -r /tmp/resources/resource.yaml -o json --publish --token ${token}`;
       const results = execSync(command);
 
+      // Debug helpers
       // if (results) {
       //   console.log(`Got nctl results: ${results.toString()}`);
       // } else {
