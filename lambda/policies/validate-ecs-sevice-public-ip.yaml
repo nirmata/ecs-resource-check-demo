@@ -1,16 +1,16 @@
 apiVersion: json.kyverno.io/v1alpha1
 kind: ValidatingPolicy
 metadata:
-  annotations:
-    description.policy.kyverno.io: This Policy ensures that ECS services do not have public Docker image
-    title.policy.kyverno.io: ECS Task public Docker Image usage
-    policies.kyverno.io/category: ECS Best Practices
+  name: ecs-service-check-public-ip
   labels:
-    ecs.aws.tags.kyverno.io: ecs-service
-  name: ecs-service-count
+    ecs.aws.tags.kyverno.io: 'ecs-service'
+  annotations:
+    title.policy.kyverno.io: ECS service check public IP
+    description.policy.kyverno.io: This Policy checks that ECS service does not use a public IP
+    policies.kyverno.io/category: ECS Best Practices
 spec:
   rules:
-    - name: ecs-service-desired-count-limit
+    - name: ecs-service-check-public-ip
       identifier: |-
         (
           resources[0] ||
@@ -29,8 +29,12 @@ spec:
              (contains(eventName, 'CreateService')): true
       assert:
         all:
-          - message: ECS Services cannot have greater than 10 count without approval '{{detail.requestParameters.serviceName}}'
+          - message: "ECS Services '{{detail.requestParameters.serviceName}}' should not use public IP"
             check:
               detail:
-                requestParameters:
-                  (desiredCount < `10`): true
+                responseElements:
+                  service:
+                    ~.deployments:
+                      networkConfiguration:
+                        awsvpcConfiguration:
+                          assignPublicIp: DISABLED
