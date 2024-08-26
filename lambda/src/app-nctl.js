@@ -1,71 +1,146 @@
-const { ECS } = require("@aws-sdk/client-ecs");
+const {
+  EventBridgeClient,
+  PutEventsCommand,
+} = require("@aws-sdk/client-eventbridge");
+
 const { execSync } = require("child_process");
 const fs = require("fs");
 const YAML = require("js-yaml");
-
-const ecs = new ECS();
+const axios = require("axios");
 
 exports.handler = async (event, context) => {
   const resourceDir = "/tmp/resources";
+  const user = process.env.NPM_USER || null;
+  const token = process.env.NPM_TOKEN || null;
+
+  const client = new EventBridgeClient({});
 
   try {
     console.log(`Got event: ${JSON.stringify(event)}`);
-    console.log(`Got context: ${JSON.stringify(context)}`);
+    console.log(`Webhook url: ${url}`);
+    console.log(`Event resources: ${JSON.stringify(event.resources)}`);
     console.log(`Got event payload: ${JSON.stringify(event.detail)}`);
 
-    const taskArn = event.detail.taskArn;
-    const clusterArn = event.detail.clusterArn;
-
-    console.log(`Task ARN: ${taskArn}`);
-    console.log(`Cluster ARN: ${clusterArn}`);
-
-    const response = await ecs.describeTasks({
-      tasks: [taskArn],
-      cluster: clusterArn,
-    });
-
-    console.log(`Response: ${JSON.stringify(response)}`);
-
-    const containerImage = response.tasks[0].containers[0].image;
-    console.log(`Container Image: ${containerImage}`);
-
-    var resource = new Object();
-    /* Create resource object for validation
-    resource.apiVersion = "v1";
-    resource.kind = "ecs";
-    resource.metadata = Object();
-    resource.metadata.name = taskArn;
-    resource.spec = response.tasks[0];
-    */
-    //Create resource object for image verification - use Pod as Kind
-    resource.apiVersion = "v1";
-    resource.kind = "Pod";
-    resource.metadata = Object();
-    resource.metadata.name = taskArn;
-    resource.spec = response.tasks[0];
-
-    console.log(`Resource: ${JSON.stringify(resource)}`);
-
-    const resourceYAML = YAML.dump(resource);
+    const resourceYAML = YAML.dump(event);
     console.log(`Resource YAML: ${resourceYAML}`);
 
     if (!fs.existsSync(resourceDir)) {
       fs.mkdirSync(resourceDir);
     }
 
-    fs.writeFileSync("/tmp/resources/ecs.yaml", resourceYAML, "utf8");
+    fs.writeFileSync("/tmp/resources/resource.yaml", resourceYAML, "utf8");
 
     // Run a CLI command to verify the task
-    const command = `/bin/nctl scan --resource-type json -p /policies/ -r /tmp/resources/`;
-    const output = execSync(command);
-    console.log(output.toString());
+    const command = `/bin/nctl scan -p /policies/ -r /tmp/resources/resource.yaml --details --publish --token ${token} --user ${user}`;
+    const results = execSync(command);
+    console.log(`Got results: ${results.toString()}`);
 
-    if (output.includes("failed to verify image")) {
-      console.error(`Failed to verify image ${containerImage}`);
-      return "Fail";
+    const breakpoint = "- ";
+    const splittedResults = results.toString().split(breakpoint);
+    console.log(`Got splittedResults: ${splittedResults.toString()}`);
+
+    if (splittedResults.length > 1) {
+      splittedResults.shift();
+    } else {
+      console.log(`No results found`);
+      return;
     }
 
-    return "Success";
+    var details = new Object();
+    details.results = splittedResults;
+
+    console.log(`Got details: ${JSON.stringify(details)}`);
+
+    var eventName = "--";
+    if (event.detail.eventName) {
+      eventName = event.detail.eventName;
+    }
+
+    var eventTime = event.time;
+    if (event.detail.eventTime) {
+      eventTime = event.detail.eventTime;
+    }
+
+    var resources = [];
+    resources.push("Event Source: " + event.source);
+    resources.push("Event Name: " + eventName);
+    resources.push("Event Type: " + event["detail-type"]);
+    resources.push("Event Time: " + eventTime);
+    resources.push("AWS Account: " + event.account);
+    resources.push("Region: " + event.region);
+    for (const resource of event.resources) {
+      resources.push("Resource: " + resource);
+    }
+
+    console.log(`Got resources: ${resources}`);
+
+    const response = await client.send(
+      new PutEventsCommand({
+        Entries: [
+          {
+            Detail: JSON.stringify(details),
+            DetailType: "Policy Results",
+            Resources: event.resources,
+            Source: "nirmata.lambda",
+            EventBusName:
+              "arn:aws:events:us-west-1:844333597536:event-bus/ecs-results-event-bus",
+          },
+        ],
+      })
+    );
+    console.log(`PutEvents response: ${JSON.stringify(response)}`);
+
+    // if (url) {
+    //   const data = {
+    //     blocks: [],
+    //   };
+
+    //   data.blocks.push({
+    //     type: "header",
+    //     text: {
+    //       type: "plain_text",
+    //       text: "Policy Results",
+    //       emoji: true,
+    //     },
+    //   });
+
+    //   const resourceSection = {
+    //     type: "section",
+    //     fields: [],
+    //   };
+
+    //   for (const resource of resources) {
+    //     resourceSection.fields.push({
+    //       type: "plain_text",
+    //       text: resource,
+    //       emoji: true,
+    //     });
+    //   }
+
+    //   data.blocks.push(resourceSection);
+
+    //   for (const result of splittedResults) {
+    //     data.blocks.push({
+    //       type: "section",
+    //       text: {
+    //         type: "mrkdwn",
+    //         text: result,
+    //       },
+    //     });
+    //   }
+
+    //   console.log(`Sending data to webhook: ${JSON.stringify(data)}`);
+
+    //   const postResponse = await axios.post(url, data, {
+    //     headers: {
+    //       // Overwrite Axios's automatically set Content-Type
+    //       "Content-Type": "application/json",
+    //     },
+    //   });
+    //   console.log("POST response: ", postResponse);
+    // }
+
+    return;
   } catch (err) {
     console.error(err);
     throw err;

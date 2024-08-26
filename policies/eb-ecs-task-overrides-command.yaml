@@ -4,12 +4,23 @@ metadata:
   annotations:
     description.policy.kyverno.io: This Policy ensures that ECS services do not allow container 'command' overrides
     title.policy.kyverno.io: ECS Task does not allow container 'command' overrides
+    policies.kyverno.io/category: ECS Best Practices
   labels:
     ecs.aws.tags.kyverno.io: ecs-task
   name: ecs-task-container-command
 spec:
   rules:
     - name: ecs-task-container-command
+      identifier: |-
+        (
+          resources[0] ||
+          detail.responseElements.service.serviceArn ||
+          detail.responseElements.taskDefinition.taskDefinitionArn ||
+          detail.responseElements.tasks[0].taskArn ||
+          detail.containerInstanceArn ||
+          detail.clusterArn ||
+          ''
+        )
       match:
         all:
          - source: aws.ecs

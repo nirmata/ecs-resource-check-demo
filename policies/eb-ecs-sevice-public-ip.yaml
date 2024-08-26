@@ -7,9 +7,20 @@ metadata:
   annotations:
     title.policy.kyverno.io: ECS service check public IP
     description.policy.kyverno.io: This Policy checks that ECS service does not use a public IP
+    policies.kyverno.io/category: ECS Best Practices
 spec:
   rules:
     - name: ecs-service-check-public-ip
+      identifier: |-
+        (
+          resources[0] ||
+          detail.responseElements.service.serviceArn ||
+          detail.responseElements.taskDefinition.taskDefinitionArn ||
+          detail.responseElements.tasks[0].taskArn ||
+          detail.containerInstanceArn ||
+          detail.clusterArn ||
+          ''
+        )
       match:
         all:
          - source: aws.ecs

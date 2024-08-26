@@ -4,12 +4,23 @@ metadata:
   annotations:
     description.policy.kyverno.io: This Policy ensures that ECS services do not have public Docker image
     title.policy.kyverno.io: ECS Task public Docker Image usage
+    policies.kyverno.io/category: ECS Best Practices
   labels:
     ecs.aws.tags.kyverno.io: ecs-service
   name: ecs-service-count
 spec:
   rules:
     - name: ecs-service-desired-count-limit
+      identifier: |-
+        (
+          resources[0] ||
+          detail.responseElements.service.serviceArn ||
+          detail.responseElements.taskDefinition.taskDefinitionArn ||
+          detail.responseElements.tasks[0].taskArn ||
+          detail.containerInstanceArn ||
+          detail.clusterArn ||
+          ''
+        )
       match:
         all:
          - source: aws.ecs

@@ -1,3 +1,0 @@
-name,controlId,description,cloudProviders,policy,rule,id,isManual
-ECS Task Definition public Docker Image usage,1,"ECS Task Definitions require the use of readonlyRootFilesystem","ECS",ecs-task-definition-ro-root-fs,ecs-task-definition-ro-root-fs,,
-This Policy ensures that ECS services do not allow container 'command' overrides,2,"ECS Task does not allow overriding container 'command'","ECS",ecs-task-container-command,ecs-task-container-command,,
