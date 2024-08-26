@@ -32,22 +32,6 @@ export async function handler(event, context) {
     const results = execSync(command);
     console.log(`Got results: ${results.toString()}`);
 
-    // const breakpoint = "- ";
-    // const splittedResults = results.toString().split(breakpoint);
-    // console.log(`Got splittedResults: ${splittedResults.toString()}`);
-
-    // if (splittedResults.length > 1) {
-    //   splittedResults.shift();
-    // } else {
-    //   console.log(`No results found`);
-    //   return;
-    // }
-
-    // var details = new Object();
-    // details.results = splittedResults;
-
-    // console.log(`Got details: ${JSON.stringify(details)}`);
-
     var eventName = "--";
     if (event.detail.eventName) {
       eventName = event.detail.eventName;
@@ -86,56 +70,6 @@ export async function handler(event, context) {
       })
     );
     console.log(`PutEvents response: ${JSON.stringify(response)}`);
-
-    // if (url) {
-    //   const data = {
-    //     blocks: [],
-    //   };
-
-    //   data.blocks.push({
-    //     type: "header",
-    //     text: {
-    //       type: "plain_text",
-    //       text: "Policy Results",
-    //       emoji: true,
-    //     },
-    //   });
-
-    //   const resourceSection = {
-    //     type: "section",
-    //     fields: [],
-    //   };
-
-    //   for (const resource of resources) {
-    //     resourceSection.fields.push({
-    //       type: "plain_text",
-    //       text: resource,
-    //       emoji: true,
-    //     });
-    //   }
-
-    //   data.blocks.push(resourceSection);
-
-    //   for (const result of splittedResults) {
-    //     data.blocks.push({
-    //       type: "section",
-    //       text: {
-    //         type: "mrkdwn",
-    //         text: result,
-    //       },
-    //     });
-    //   }
-
-    //   console.log(`Sending data to webhook: ${JSON.stringify(data)}`);
-
-    //   const postResponse = await axios.post(url, data, {
-    //     headers: {
-    //       // Overwrite Axios's automatically set Content-Type
-    //       "Content-Type": "application/json",
-    //     },
-    //   });
-    //   console.log("POST response: ", postResponse);
-    // }
 
     return;
   } catch (err) {
