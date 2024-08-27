@@ -4,7 +4,7 @@ on:
     - cron: "0/15 * * * *"
 
 env:
-  AWS_REGION: MY_AWS_REGION
+  AWS_REGION: us-west-1
 
 permissions:
   contents: read
@@ -22,7 +22,7 @@ jobs:
       uses: sagarsthorat/aws-cli@v1
       with:
         # AWS Default Region
-        region: us-west-1
+        region: ${{ env.AWS_REGION }}
         # AWS Access Key ID
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         # AWS Secret Access Key
