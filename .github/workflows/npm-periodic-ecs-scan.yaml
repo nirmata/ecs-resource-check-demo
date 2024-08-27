@@ -21,15 +21,9 @@ jobs:
     - name: Configure AWS credentials
       uses: sagarsthorat/aws-cli@v1
       with:
-        # AWS Default Region
         region: ${{ env.AWS_REGION }}
-        # AWS Access Key ID
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        # AWS Secret Access Key
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        # AWS CLI Version
-        # aws-cli-version: 2.17.37
-        # AWS CLI Output Format
         output-format: json
 
     - name: Pull down current clusters
