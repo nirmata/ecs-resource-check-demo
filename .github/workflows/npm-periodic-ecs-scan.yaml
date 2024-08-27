@@ -43,7 +43,7 @@ jobs:
         echo "Verify Installation"
         chmod 755 ./nctl
         ./nctl version
-        ./nctl login --url https://nirmata.io --userid dolis@nirmata.com --token ${{ secrets.NPM_TOKEN }}
+        ./nctl login --url https://nirmata.io --userid boris.kurktchiev@nirmata.com --token ${{ secrets.NPM_TOKEN }}
 
     - name: Check clusters with NCTL
       run: |
