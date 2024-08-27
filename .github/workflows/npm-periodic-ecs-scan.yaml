@@ -55,5 +55,5 @@ jobs:
 
     - name: Check tasks with NCTL
       run: |
-        cat *-task-list.json
+        ls -la *-task-list.json
         ./nctl scan json -p policies/ -r *-task-list.json --details
