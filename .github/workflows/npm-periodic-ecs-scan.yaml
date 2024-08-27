@@ -51,11 +51,9 @@ jobs:
         done
 
     - name: Check clusters with NCTL
-      run: |
-        cat cluster-list.json
-        ./nctl scan json -p policies/ -r cluster-list.json -o json
+      run: ./nctl scan json -p policies/ -r cluster-list.json -o json
 
     - name: Check tasks with NCTL
       run: |
-        cat task-list.json
+        cat *-task-list.json
         ./nctl scan json -p policies/ -r *-task-list.json -o json
