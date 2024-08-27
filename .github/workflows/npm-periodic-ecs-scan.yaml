@@ -37,22 +37,25 @@ jobs:
         ./nctl version
         ./nctl login --url https://nirmata.io --userid boris.kurktchiev@nirmata.com --token ${{ secrets.NPM_TOKEN }}
 
+    - name: Setup Payload directory
+      run: mkdir payloads
+
     - name: Pull down current clusters
-      run: aws ecs describe-clusters --output json --region ${{ env.AWS_REGION }} --include SETTINGS --clusters `aws ecs list-clusters --query clusterArns --output text --region ${{ env.AWS_REGION }}` > $(date +%Y%m%d%H%M%S)-cluster-list.json
+      run: aws ecs describe-clusters --output json --region ${{ env.AWS_REGION }} --include SETTINGS --clusters `aws ecs list-clusters --query clusterArns --output text --region ${{ env.AWS_REGION }}` > payloads/$(date +%Y%m%d%H%M%S)-cluster-list.json
 
     - name: Pull down current tasks per cluster
       run: |
         runtime=$(date +%Y%m%d%H%M%S)
         for i in $(aws ecs list-clusters --query clusterArns --output text --region ${{ env.AWS_REGION }}); do
           count=$((count+1))
-          aws ecs list-tasks --query taskArns --output text --cluster ${i} --region ${{ env.AWS_REGION }} > ${runtime}-${count}-task-count.txt
-          if (($(cat ${runtime}-${count}-task-count.txt | wc -l) > 0 )); then
-            aws ecs describe-tasks --output json --cluster ${i} --region ${{ env.AWS_REGION }} --tasks `cat ${runtime}-${count}-task-count.txt` > ${runtime}-${count}-task-list.json
+          aws ecs list-tasks --query taskArns --output text --cluster ${i} --region ${{ env.AWS_REGION }} > payloads/${runtime}-${count}-task-count.txt
+          if (($(cat payloads/${runtime}-${count}-task-count.txt | wc -l) > 0 )); then
+            aws ecs describe-tasks --output json --cluster ${i} --region ${{ env.AWS_REGION }} --tasks `cat payloads/${runtime}-${count}-task-count.txt` > payloads/${runtime}-${count}-task-list.json
           fi
         done
 
-    - name: Check clusters with NCTL
-      run: ./nctl scan json -p policies/ -r *-cluster-list.json --details --publish
+    - name: Check with NCTL
+      run: ./nctl scan json -p policies/ -r payloads/ --details --publish
 
-    - name: Check tasks with NCTL
-      run: ./nctl scan json -p policies/ -r *-task-list.json --details --publish
+    # - name: Check tasks with NCTL
+    #   run: ./nctl scan json -p policies/ -r *-task-list.json --details --publish
