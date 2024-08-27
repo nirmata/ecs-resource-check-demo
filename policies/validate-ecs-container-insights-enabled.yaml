@@ -1,7 +1,7 @@
 apiVersion: json.kyverno.io/v1alpha1
 kind: ValidatingPolicy
 metadata:
-  name: validate-ecs-container-insights-enabled-scan
+  name: validate-ecs-container-insights-enabled-from-scan
   labels:
     ecs.aws.tags.kyverno.io: 'ecs-cluster'
   annotations:
