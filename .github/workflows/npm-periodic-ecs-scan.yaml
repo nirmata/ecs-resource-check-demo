@@ -15,6 +15,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
     - name: Configure AWS credentials
       uses: sagarsthorat/aws-cli@v1
       with:
@@ -25,6 +28,10 @@ jobs:
         # AWS Secret Access Key
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         # AWS CLI Version
-        aws-cli-version: latest
+        aws-cli-version: 2.17.37
         # AWS CLI Output Format
         output-format: json
+
+    - name: Pull down current ECS resources
+      run: aws --version
+
