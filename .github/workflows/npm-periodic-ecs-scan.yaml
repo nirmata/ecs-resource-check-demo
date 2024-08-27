@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   pull-aws-resources:
-    name: Pull AWS Resources
+    name: Periodic AWS ECS Resource Scan
     runs-on: ubuntu-latest
 
     steps:
