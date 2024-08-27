@@ -30,7 +30,7 @@ exports.handler = async (event, context) => {
 
     // Run a CLI command to verify the task
     try {
-      const command = `/bin/nctl scan json -p /policies/ -r /tmp/resources/resource.yaml -o json --publish --token ${token}`;
+      const command = `/bin/nctl login --url https://nirmata.io --userid ${user} --token ${token} && /bin/nctl scan json -p /policies/ -r /tmp/resources/resource.yaml -o json --publish`;
       const results = execSync(command);
 
       // Debug helpers

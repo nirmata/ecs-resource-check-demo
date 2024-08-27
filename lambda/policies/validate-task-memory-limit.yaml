@@ -2,10 +2,12 @@ apiVersion: json.kyverno.io/v1alpha1
 kind: ValidatingPolicy
 metadata:
   name: validate-ecs-task-and-definition-memory-hard-limit-from-lambda
+  labels:
+    ecs.aws.tags.kyverno.io: 'ecs-task'
   annotations:
     policies.kyverno.io/title: Validate ECS Task Definition Memory Hard Limit
     policies.kyverno.io/category: ECS Best Practices
-    policies.kyverno.io/severity: critical
+    policies.kyverno.io/severity: medium
     policies.kyverno.io/description: >-
       This policy checks if Amazon Elastic Container Service
       (ECS) task definitions and tasks have a set memory limit for its container definitions.

@@ -2,6 +2,8 @@ apiVersion: json.kyverno.io/v1alpha1
 kind: ValidatingPolicy
 metadata:
   name: validate-ecs-container-insights-enabled-from-ncc
+  labels:
+    ecs.aws.tags.kyverno.io: 'ecs-cluster'
   annotations:
     policies.kyverno.io/title: Validate ECS Container Insights are Enabled
     policies.kyverno.io/category: ECS Best Practices
