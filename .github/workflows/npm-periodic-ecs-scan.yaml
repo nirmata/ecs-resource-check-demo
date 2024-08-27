@@ -38,8 +38,22 @@ jobs:
     - name: Pull down current tasks
       run: aws ecs describe-tasks --output json --tasks `aws ecs list-tasks --query taskArns --output text --cluster ecs-test --region ${{ env.AWS_REGION }}` --cluster ecs-test --region ${{ env.AWS_REGION }} > task-list.json
 
+    - name: Run a one-line script
+      run: |
+        echo "Downloading and Installing NCTL 4.1.0"
+        wget https://nirmata-downloads.s3.us-east-2.amazonaws.com/nctl/nctl_4.2.1-rc.7/nctl_4.2.1-rc.7_linux_amd64.zip
+        unzip -o *.zip
+        echo "Verify Installation"
+        chmod 755 ./nctl
+        ./nctl version
+        ./nctl login --url https://nirmata.io --userid dolis@nirmata.com --token ${{ secrets.NPM_TOKEN }}
+
     - name: Check clusters with NCTL
-      run: cat cluster-list.json
+      run: |
+        cat cluster-list.json
+        ./nctl scan json -p cloud-controller/policies -r cluster-list.json --details
 
     - name: Check tasks with NCTL
-      run: cat task-list.json
+      run: |
+        cat task-list.json
+        ./nctl scan json -p cloud-controller/policies -r task-list.json --details
