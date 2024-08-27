@@ -20,7 +20,7 @@ exports.handler = async (event, context) => {
 
     const resourceYAML = YAML.dump(event);
     // Debug helpers
-    // console.log(`Resource YAML: ${resourceYAML}`);
+    console.log(`Resource YAML: ${resourceYAML}`);
 
     if (!fs.existsSync(resourceDir)) {
       fs.mkdirSync(resourceDir);
