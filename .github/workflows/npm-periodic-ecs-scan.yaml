@@ -35,7 +35,7 @@ jobs:
         for i in $(aws ecs list-clusters --query clusterArns --output text --region ${{ env.AWS_REGION }}); do
           count=$((count+1))
           aws ecs list-tasks --query taskArns --output text --cluster ${i} --region ${{ env.AWS_REGION }} > ${count}-task-count.txt
-          if (($(${count}-task-count.txt | wc -l) > 0 )); then
+          if (($(cat ${count}-task-count.txt | wc -l) > 0 )); then
             aws ecs describe-tasks --output json --cluster ${i} --region ${{ env.AWS_REGION }} --tasks `cat ${count}-task-count.txt` > ${count}-task-list.json
           fi
         done
