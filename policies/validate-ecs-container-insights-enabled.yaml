@@ -1,0 +1,26 @@
+apiVersion: json.kyverno.io/v1alpha1
+kind: ValidatingPolicy
+metadata:
+  name: validate-ecs-container-insights-enabled-scan
+  labels:
+    ecs.aws.tags.kyverno.io: 'ecs-cluster'
+  annotations:
+    policies.kyverno.io/title: Validate ECS Container Insights are Enabled
+    policies.kyverno.io/category: ECS Best Practices
+    policies.kyverno.io/severity: medium
+    policies.kyverno.io/description: >-
+      Container Insights enhances the operational visibility of ECS clusters, allowing for proactive issue resolution.
+      Enabling this feature ensures that diagnostic information is readily available, contributing to a more efficient and reliable containerized environment.
+spec:
+  rules:
+    - name: validate-ecs-container-insights-enabled
+      match:
+        any:
+        - (cluster.clusterArn.split(@, ':')[2] == 'ecs'): true
+      assert:
+        all:
+        - message: "ECS container insights must be enabled: '{{detail.responseElements.cluster.clusterArn}}'"
+          check:
+            ~.(clusters):
+              ~.(settings):
+                  (value == 'enabled'): true

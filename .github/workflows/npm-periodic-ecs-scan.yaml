@@ -53,9 +53,9 @@ jobs:
     - name: Check clusters with NCTL
       run: |
         cat cluster-list.json
-        ./nctl scan json -p cloud-controller/policies -r cluster-list.json --details
+        ./nctl scan json -p policies/ -r cluster-list.json --details
 
     - name: Check tasks with NCTL
       run: |
         cat task-list.json
-        ./nctl scan json -p cloud-controller/policies -r *-task-list.json --details
+        ./nctl scan json -p policies/ -r *-task-list.json --details
