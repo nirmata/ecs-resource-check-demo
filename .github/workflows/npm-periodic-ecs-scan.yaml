@@ -37,3 +37,9 @@ jobs:
 
     - name: Pull down current tasks
       run: aws ecs describe-tasks --output json --tasks `aws ecs list-tasks --query taskArns --output text --cluster ecs-test --region ${{ env.AWS_REGION }}` --cluster ecs-test --region ${{ env.AWS_REGION }} > task-list.json
+
+    - name: Check clusters with NCTL
+      run: cat cluster-list.json
+
+    - name: Check tasks with NCTL
+      run: cat task-list.json
