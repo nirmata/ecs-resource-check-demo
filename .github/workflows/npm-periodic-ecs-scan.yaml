@@ -27,10 +27,13 @@ jobs:
         output-format: json
 
     - name: Pull down current clusters
-      run: aws ecs describe-clusters --output json --include SETTINGS --clusters `aws ecs list-clusters --query clusterArns --output text --region ${{ env.AWS_REGION }}` --region ${{ env.AWS_REGION }} > cluster-list.json
+      run: aws ecs describe-clusters --output json --region ${{ env.AWS_REGION }} --include SETTINGS --clusters `aws ecs list-clusters --query clusterArns --output text --region ${{ env.AWS_REGION }}` > cluster-list.json
 
-    - name: Pull down current tasks
-      run: aws ecs describe-tasks --output json --tasks `aws ecs list-tasks --query taskArns --output text --cluster ecs-test --region ${{ env.AWS_REGION }}` --cluster ecs-test --region ${{ env.AWS_REGION }} > task-list.json
+    - name: Pull down current tasks per cluster
+      run: |
+        for i in $(aws ecs list-clusters --query clusterArns --output text --region ${{ env.AWS_REGION }}); do
+          aws ecs describe-tasks --output json --cluster ${i} --region ${{ env.AWS_REGION }} --tasks `aws ecs list-tasks --query taskArns --output text --cluster ${i} --region ${{ env.AWS_REGION }}` > ${i}-task-list.json
+        done
 
     - name: Run a one-line script
       run: |
@@ -50,4 +53,4 @@ jobs:
     - name: Check tasks with NCTL
       run: |
         cat task-list.json
-        ./nctl scan json -p cloud-controller/policies -r task-list.json --details
+        ./nctl scan json -p cloud-controller/policies -r *-task-list.json --details
