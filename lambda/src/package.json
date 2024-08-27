@@ -1,7 +1,7 @@
 {
     "name": "ecs-lambda-function",
     "version": "1.0.0",
-    "description": "Lambda function for handling ECS task state change events",
+    "description": "Lambda function for handling ECS Governance with Nirmata",
     "main": "app.js",
     "scripts": {
         "start": "node app.js"
