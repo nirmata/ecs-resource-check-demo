@@ -2,8 +2,8 @@ apiVersion: json.kyverno.io/v1alpha1
 kind: ValidatingPolicy
 metadata:
   name: validate-ecs-task-and-definition-memory-hard-limit-from-lambda
-  labels:
-    ecs.aws.tags.kyverno.io: 'ecs-task'
+  # labels:
+  #   ecs.aws.tags.kyverno.io: 'ecs-task'
   annotations:
     policies.kyverno.io/title: Validate ECS Task Definition Memory Hard Limit
     policies.kyverno.io/category: ECS Best Practices
@@ -16,7 +16,7 @@ metadata:
       If a container exceeds its memory limit, it will be terminated by ECS.
 spec:
   rules:
-    - name: ecs-service-check-public-ip
+    - name: validate-ecs-task-memory-hard-limit
       match:
         all:
          - source: aws.ecs
