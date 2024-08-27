@@ -28,7 +28,7 @@ jobs:
         # AWS Secret Access Key
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         # AWS CLI Version
-        aws-cli-version: 2.17.37
+        # aws-cli-version: 2.17.37
         # AWS CLI Output Format
         output-format: json
 
