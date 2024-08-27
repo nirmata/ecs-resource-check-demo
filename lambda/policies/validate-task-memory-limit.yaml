@@ -20,15 +20,13 @@ spec:
       match:
         all:
          - source: aws.ecs
-         - detail-type: "AWS API Call via CloudTrail"
-         - detail:
-             (contains(eventName, 'RunTask')): true
+         - detail-type: "ECS Task State Change"
+         - detail.eventName:
+             (contains(@, 'RunTask')): true
       assert:
         all:
           - message: Memory limit for containers in the task should be set in the container definitions of its task
             check:
               detail:
-                responseElements:
-                  ~.(tasks):
-                    ~.(containers):
-                        (!memory): false
+                ~.(containers):
+                    (!memory): false
