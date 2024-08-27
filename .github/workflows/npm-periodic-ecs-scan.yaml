@@ -2,6 +2,7 @@ name: Periodic scan of AWS ECS Resources with NCTL
 on:
   schedule:
     - cron: "0/15 * * * *"
+  workflow_dispatch:
 
 env:
   AWS_REGION: us-west-1
