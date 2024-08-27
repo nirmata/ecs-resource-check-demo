@@ -51,7 +51,7 @@ jobs:
         done
 
     - name: Check clusters with NCTL
-      run: ./nctl scan json -p policies/ -r cluster-list.json --details --publish
+      run: ./nctl scan json -p policies/ -r cluster-list.json --details --publish --debug
 
     - name: Check tasks with NCTL
-      run: ./nctl scan json -p policies/ -r *-task-list.json --details --publish
+      run: ./nctl scan json -p policies/ -r *-task-list.json --details --publish --debug
