@@ -33,5 +33,5 @@ jobs:
         output-format: json
 
     - name: Pull down current ECS resources
-      run: aws --version
+      run: aws s3 ls
 
