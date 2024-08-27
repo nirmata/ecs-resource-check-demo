@@ -32,6 +32,8 @@ jobs:
         # AWS CLI Output Format
         output-format: json
 
-    - name: Pull down current ECS resources
-      run: aws s3 ls
+    - name: Pull down current clusters
+      run: aws ecs describe-clusters --output json --include SETTINGS --clusters `aws ecs list-clusters --query clusterArns --output text --region ${{ env.AWS_REGION }}` --region ${{ env.AWS_REGION }} > cluster-list.json
 
+    - name: Pull down current tasks
+      run: aws ecs describe-tasks --output json --tasks `aws ecs list-tasks --query taskArns --output text --cluster ecs-test --region ${{ env.AWS_REGION }}` --cluster ecs-test --region ${{ env.AWS_REGION }} > task-list.json
