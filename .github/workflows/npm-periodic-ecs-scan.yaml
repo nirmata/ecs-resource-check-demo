@@ -32,7 +32,8 @@ jobs:
     - name: Pull down current tasks per cluster
       run: |
         for i in $(aws ecs list-clusters --query clusterArns --output text --region ${{ env.AWS_REGION }}); do
-          aws ecs describe-tasks --output json --cluster ${i} --region ${{ env.AWS_REGION }} --tasks `aws ecs list-tasks --query taskArns --output text --cluster ${i} --region ${{ env.AWS_REGION }}` > ${i}-task-list.json
+          count=$((count+1))
+          aws ecs describe-tasks --output json --cluster ${i} --region ${{ env.AWS_REGION }} --tasks `aws ecs list-tasks --query taskArns --output text --cluster ${i} --region ${{ env.AWS_REGION }}` > ${count}-task-list.json
         done
 
     - name: Run a one-line script
