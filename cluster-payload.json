@@ -1,0 +1,55 @@
+{
+  "clusters": [
+    {
+      "clusterArn": "arn:aws:ecs:us-west-1:844333597536:cluster/ecs-test",
+      "clusterName": "ecs-test",
+      "status": "ACTIVE",
+      "registeredContainerInstancesCount": 0,
+      "runningTasksCount": 1,
+      "pendingTasksCount": 2,
+      "activeServicesCount": 0,
+      "statistics": [],
+      "tags": [],
+      "settings": [
+        {
+          "name": "containerInsights",
+          "value": "disabled"
+        }
+      ],
+      "capacityProviders": [
+        "FARGATE",
+        "FARGATE_SPOT"
+      ],
+      "defaultCapacityProviderStrategy": [],
+      "serviceConnectDefaults": {
+        "namespace": "arn:aws:servicediscovery:us-west-1:844333597536:namespace/ns-dkm2gnhclifscqrb"
+      }
+    },
+    {
+      "clusterArn": "arn:aws:ecs:us-west-1:844333597536:cluster/test-ecs-cluster",
+      "clusterName": "test-ecs-cluster",
+      "status": "ACTIVE",
+      "registeredContainerInstancesCount": 0,
+      "runningTasksCount": 0,
+      "pendingTasksCount": 0,
+      "activeServicesCount": 0,
+      "statistics": [],
+      "tags": [],
+      "settings": [
+        {
+          "name": "containerInsights",
+          "value": "disabled"
+        }
+      ],
+      "capacityProviders": [
+        "FARGATE",
+        "FARGATE_SPOT"
+      ],
+      "defaultCapacityProviderStrategy": [],
+      "serviceConnectDefaults": {
+        "namespace": "arn:aws:servicediscovery:us-west-1:844333597536:namespace/ns-fsl6w2hwwa6bdcb2"
+      }
+    }
+  ],
+  "failures": []
+}
