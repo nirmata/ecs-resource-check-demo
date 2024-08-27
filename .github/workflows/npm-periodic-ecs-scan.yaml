@@ -22,7 +22,7 @@ jobs:
       uses: sagarsthorat/aws-cli@v1
       with:
         # AWS Default Region
-        region: ${{ env.AWS_REGION }}
+        region: us-west-1
         # AWS Access Key ID
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         # AWS Secret Access Key
