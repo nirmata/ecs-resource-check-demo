@@ -1,0 +1,14 @@
+apiVersion: proxy.nirmata.io/v1alpha1
+kind: Proxy
+metadata:
+  name: ncc-demo-proxy
+spec:
+  port: 8443
+  caKeySecret:
+    name: cloud-admission-controller-service.nirmata.svc.tls-ca
+    namespace: nirmata
+  urls:
+    - ".*.amazonaws.com"
+  policySelectors:
+    - matchLabels:
+        app: kyverno
