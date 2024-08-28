@@ -14,6 +14,7 @@ metadata:
 spec:
   rules:
     - name: validate-ecs-container-insights-enabled
+      identifier: data.clusterName
       match:
         all:
         - provider: "AWS"
@@ -23,6 +24,6 @@ spec:
         all:
         - message: From NCC - ECS container insights must be enabled on clusters
           check:
-            cluster:
-              ~.(settings):
-                  (value == 'enabled'): true
+            data:
+              (settings[?name=='containerInsights']):
+              - value: enabled

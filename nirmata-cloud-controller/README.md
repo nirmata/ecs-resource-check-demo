@@ -76,7 +76,7 @@ aws ecs create-cluster --cluster-name TEST
 
 The output should be similar to the following:
 
-```bash
+```yaml
 An error occurred (406) when calling the CreateCluster operation: ecs-cluster.check-tags TEST: -> A 'group' tag is required
 -> all[0].check.data.(tags[?key=='group'] || `[]`).(length(@) > `0`): Invalid value: false: Expected value: true
 ```
@@ -88,6 +88,16 @@ As expected, the request is blocked by the cloud admission controller because th
 aws ecs create-cluster --cluster-name TEST --tags key=group,value=test key=owner,value=test
 ```
 
+This time we are running into a different problem. We did not enable `Container Insights`!
+```yaml
+An error occurred (406) when calling the CreateCluster operation: validate-ecs-container-insights-enabled.validate-ecs-container-insights-enabled TEST: -> From NCC - ECS container insights must be enabled on clusters
+ -> all[0].check.data.(settings[?name=='containerInsights'] || `[]`).(value == 'enabled'): Invalid value: false: Expected value: true
+```
+
+Let us add it in:
+```bash
+aws ecs create-cluster --cluster-name TEST --tags key=group,value=test key=owner,value=test --settings name=containerInsights,value=enabled
+```
 The output should be similar to the following:
 
 ```json
@@ -114,7 +124,7 @@ The output should be similar to the following:
         "settings": [
             {
                 "name": "containerInsights",
-                "value": "disabled"
+                "value": "enabled"
             }
         ],
         "capacityProviders": [],
@@ -122,7 +132,7 @@ The output should be similar to the following:
 }
 ```
 
-As expected, the request is allowed by the cloud admission controller because the `group` tag is present.
+As expected, the request is allowed by the cloud admission controller because the `group` tag is present and `containerInsights` have been enabled.
 
 11. Delete the cluster:
 ```bash
@@ -146,7 +156,7 @@ The output should be similar to the following:
        "settings": [
            {
                "name": "containerInsights",
-               "value": "disabled"
+               "value": "enabled"
            }
        ],
        "capacityProviders": [],
@@ -158,14 +168,9 @@ The output should be similar to the following:
 
 To test Image Verification you follow the previous steps with the following changes:
 
-1. Example Image Verification policies are located at:
+1. You can use the following command to test (note that a setup is required prior to this working https://github.com/nirmata/kyverno-notation-aws?tab=readme-ov-file#kyverno-notation-aws):
 ```bash
-config/samples/image-verification
-```
-
-2. You can use the following command to test theses policies:
-```bash
-aws ecs register-task-definition --cli-input-json file://<path-to-task-definition>
+aws ecs register-task-definition --cli-input-json file://nirmata-cloud-controller/image-verification/aws-signer/bad-task.json
 ```
 
 Replace `<path-to-task-definition>` with the path to the task definition file located in the same directory as the policies. There are two example files. One for a bad image and one for a good image.
