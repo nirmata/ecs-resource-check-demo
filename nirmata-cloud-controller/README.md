@@ -2,6 +2,8 @@
 
 The cloud admission controller is a custom proxy server that intercepts and validates incoming requests to cloud services. It acts as a gatekeeper, enforcing specific policies and rules before allowing the requests to reach the cloud service provider.
 
+![Admission Controller](AdmissionController.png)
+
 ## Installation
 
 Using the helm chart, you can install the cloud admission controller in your Kubernetes cluster. The helm chart provides a convenient way to deploy the cloud admission controller with default configurations.

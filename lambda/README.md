@@ -1,5 +1,7 @@
 # ecs-resource-check-demo
 
+![Lambda Flow](Lambda.png)
+
 To build the Docker images, edit the `build.sh` script to point it to your registry.
 
 To build, pass the tag version you want (increase the version as you go):
