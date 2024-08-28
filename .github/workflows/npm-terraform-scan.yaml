@@ -28,4 +28,4 @@ jobs:
         ./nctl login --url https://nirmata.io --userid boris.kurktchiev@nirmata.com --token ${{ secrets.NPM_TOKEN }}
 
     - name: Check with NCTL
-      run: ./nctl scan terraform -p terraform/policies/ -r terraform/configs --details --publish
+      run: ./nctl scan terraform -p terraform/policies/ -r terraform/configs --details --publish --report-sourceid=$(date +%Y%m%d%H%M%S)
