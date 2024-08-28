@@ -19,7 +19,7 @@ spec:
          - source: aws.ecs
          - detail-type: "AWS API Call via CloudTrail"
          - detail:
-             (contains(eventName, 'UpdateClusterSettings')): true
+             (contains(eventName, 'UpdateClusterSettings') || contains(eventName, 'CreateCluster')): true
       assert:
         all:
           - message: From Lambda - ECS container insights must be enabled on clusters

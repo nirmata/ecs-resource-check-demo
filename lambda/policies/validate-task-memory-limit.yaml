@@ -21,7 +21,7 @@ spec:
         all:
          - source: aws.ecs
          - detail-type: "ECS Task State Change"
-         - detail.containers[].lastStatus: "PENDING"
+         - detail.lastStatus: "PROVISIONING"
       assert:
         all:
           - message: From Lambda - Memory limit for containers in the task should be set in the container definitions of its task
