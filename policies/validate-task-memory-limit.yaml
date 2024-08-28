@@ -1,7 +1,7 @@
 apiVersion: json.kyverno.io/v1alpha1
 kind: ValidatingPolicy
 metadata:
-  name: validate-ecs-task-and-definition-memory-hard-limit-from-scan
+  name: validate-ecs-task-and-definition-memory-hard-limit
   # labels:
   #   ecs.aws.tags.kyverno.io: 'ecs-task'
   annotations:
