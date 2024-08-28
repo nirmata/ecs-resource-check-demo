@@ -168,7 +168,7 @@ The output should be similar to the following:
 
 To test Image Verification you follow the previous steps with the following changes:
 
-1. You can use the following command to test (note that a setup is required prior to this working https://github.com/nirmata/kyverno-notation-aws?tab=readme-ov-file#kyverno-notation-aws):
+1. You can use the following command to test (note that a setup is required prior to this working https://github.com/nirmata/kyverno-notation-aws?tab=readme-ov-file#kyverno-notation-aws some modifications to your policy will be required):
 ```bash
 aws ecs register-task-definition --cli-input-json file://nirmata-cloud-controller/image-verification/aws-signer/bad-task.json
 ```
