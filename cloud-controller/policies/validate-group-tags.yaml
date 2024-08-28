@@ -1,0 +1,27 @@
+apiVersion: json.kyverno.io/v1alpha1
+kind: ValidatingPolicy
+metadata:
+  name: ecs-cluster
+  labels:
+    app: kyverno
+  annotations:
+    policies.kyverno.io/title: Validate ECS Cluster Tags are used
+    policies.kyverno.io/category: ECS Best Practices
+    policies.kyverno.io/severity: low
+    policies.kyverno.io/description: Make sure that Group Tags are used when creating cloud resources.
+spec:
+  rules:
+    - name: check-tags
+      identifier: data.clusterName
+      match:
+        all:
+        - provider: "AWS"
+        - service: "ecs"
+        - action: "CreateCluster"
+      assert:
+        all:
+        - message: From NCC - A 'group' tag is required
+          check:
+            data:
+              (tags[?key=='group'] || `[]`):
+                (length(@) > `0`): true

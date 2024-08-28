@@ -3,7 +3,7 @@ kind: ValidatingPolicy
 metadata:
   name: validate-ecs-container-insights-enabled
   labels:
-    ecs.aws.tags.kyverno.io: 'ecs-cluster'
+    app: kyverno
   annotations:
     policies.kyverno.io/title: Validate ECS Container Insights are Enabled
     policies.kyverno.io/category: ECS Best Practices
@@ -15,8 +15,10 @@ spec:
   rules:
     - name: validate-ecs-container-insights-enabled
       match:
-        any:
-        - (cluster.clusterArn.split(@, ':')[2] == 'ecs'): true
+        all:
+        - provider: "AWS"
+        - service: "ecs"
+        - action: "CreateCluster"
       assert:
         all:
         - message: From NCC - ECS container insights must be enabled on clusters
