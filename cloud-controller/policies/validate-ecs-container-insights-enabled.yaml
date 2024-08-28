@@ -19,7 +19,7 @@ spec:
         - (cluster.clusterArn.split(@, ':')[2] == 'ecs'): true
       assert:
         all:
-        - message: ECS container insights must be enabled on clusters
+        - message: From NCC - ECS container insights must be enabled on clusters
           check:
             cluster:
               ~.(settings):

@@ -23,7 +23,7 @@ spec:
          - detail-type: "ECS Task State Change"
       assert:
         all:
-          - message: Memory limit for containers in the task should be set in the container definitions of its task
+          - message: From Lambda - Memory limit for containers in the task should be set in the container definitions of its task
             check:
               detail:
                 ~.(containers):

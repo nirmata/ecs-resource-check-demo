@@ -22,7 +22,7 @@ spec:
         - (tasks[?taskDefinitionArn != null] || `[]` | length(@) > `0`): true
       assert:
         all:
-        - message: Memory limit for containers in the task should be set in the container definitions of its task
+        - message: From NCC - Memory limit for containers in the task should be set in the container definitions of its task
           check:
             ~.(tasks):
               ~.(containers):

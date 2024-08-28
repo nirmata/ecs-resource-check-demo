@@ -19,7 +19,7 @@ spec:
         - (clusters[] || `[]` | length(@) > `0`): true
       assert:
         all:
-        - message: ECS container insights must be enabled on clusters
+        - message: From Scan - ECS container insights must be enabled on clusters
           check:
             ~.(clusters):
               ~.(settings):
