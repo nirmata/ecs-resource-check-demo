@@ -18,7 +18,7 @@ spec:
         - (resource.aws_ecs_cluster != null): true
       assert:
         all:
-        - message: From TF - ECS container insights are not enabled
+        - message: From TF - ECS container insights must be enabled on clusters
           check:
             ~.(resource.aws_ecs_cluster.values(@)[]):
                 ~.(setting || `[{}]`):
