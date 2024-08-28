@@ -1,0 +1,64 @@
+# -- (string) Override the name of the chart
+nameOverride: ~
+
+# -- (string) Override the expanded name of the chart
+fullnameOverride: ~
+
+# -- (string) Override the namespace the chart deploys to
+namespaceOverride: ~
+
+controllerManager:
+  manager:
+    args:
+    - --metrics-bind-address=:8080
+    - --leader-elect
+    - --health-probe-bind-address=:8081
+    containerSecurityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+        - ALL
+    image:
+      registery: ghcr.io
+      repository: nirmata/admission-controller
+      tag: latest
+      pullPolicy: IfNotPresent
+    resources:
+      limits:
+        cpu: 500m
+        memory: 128Mi
+      requests:
+        cpu: 10m
+        memory: 64Mi
+  replicas: 1
+  serviceAccount:
+    annotations: {}
+
+service:
+  ports:
+  - name: http
+    port: 8443
+    protocol: TCP
+    targetPort: http-proxy-svc
+  type: ClusterIP
+
+metricsService:
+  ports:
+  - name: http
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  type: ClusterIP
+  createServiceMonitor: false
+
+kubernetesClusterDomain: cluster.local
+
+imagePullSecrets: {}
+  # my-secret:
+  #   registry: ghcr.io
+  #   username: MariamFahmy98
+  #   password: secret
+  # regcred2:
+  #   registry: bar.example.com
+  #   username: barbaz
+  #   password: secret2

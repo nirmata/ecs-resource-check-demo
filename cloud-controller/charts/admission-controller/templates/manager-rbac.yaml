@@ -1,0 +1,82 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "admission-controller.fullname" . }}-manager-role
+  labels:
+  {{- include "admission-controller.labels" . | nindent 4 }}
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - update
+  - watch
+- apiGroups:
+  - json.kyverno.io
+  resources:
+  - validatingpolicies
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - nirmata.io
+  resources:
+  - imageverificationpolicies
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - proxy.nirmata.io
+  resources:
+  - proxies
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - proxy.nirmata.io
+  resources:
+  - proxies/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - proxy.nirmata.io
+  resources:
+  - proxies/status
+  verbs:
+  - get
+  - patch
+  - update
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "admission-controller.fullname" . }}-manager-rolebinding
+  labels:
+  {{- include "admission-controller.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: '{{ include "admission-controller.fullname" . }}-manager-role'
+subjects:
+- kind: ServiceAccount
+  name: '{{ include "admission-controller.fullname" . }}'
+  namespace: '{{ .Release.Namespace }}'

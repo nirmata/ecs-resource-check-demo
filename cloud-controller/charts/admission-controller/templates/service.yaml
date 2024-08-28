@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "admission-controller.fullname" . }}-service
+  namespace: {{ template "admission-controller.namespace" . }}
+  labels:
+    control-plane: controller-manager
+  {{- include "admission-controller.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  selector:
+  {{- include "admission-controller.selectorLabels" . | nindent 4 }}
+  ports:
+	{{- .Values.service.ports | toYaml | nindent 2 }}
