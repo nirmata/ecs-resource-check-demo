@@ -55,7 +55,7 @@ jobs:
         done
 
     - name: Check with NCTL
-      run: ./nctl scan json -p policies/ -r payloads/ --details --publish --report-sourceid=$(date +%Y%m%d%H%M%S)
+      run: ./nctl scan json -p cicd/ -r payloads/ --details --publish --report-sourceid=$(date +%Y%m%d%H%M%S)
 
     # - name: Check tasks with NCTL
     #   run: ./nctl scan json -p policies/ -r *-task-list.json --details --publish
