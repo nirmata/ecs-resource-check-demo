@@ -17,14 +17,14 @@ exports.handler = async (event, context) => {
     const debugEnabled = process.env.DEBUG === "enabled";
 
     if (debugEnabled) {
-      console.log(`Got event: ${JSON.stringify(event)}`);
-      console.log(`Event resources: ${JSON.stringify(event.resources)}`);
-      console.log(`Got event payload: ${JSON.stringify(event.detail)}`);
+      console.log(`Debug: Event --- \n ${JSON.stringify(event)}`);
+      console.log(`Debug: Event Resources --- \n ${JSON.stringify(event.resources)}`);
+      console.log(`Debug: Event Payload --- \n ${JSON.stringify(event.detail)}`);
     }
 
     const resourceYAML = YAML.dump(event);
     if (debugEnabled) {
-      console.log(`Resource YAML:\n ${resourceYAML}`);
+      console.log(`Debug: Resource YAML ---\n ${resourceYAML}`);
     }
 
     if (!fs.existsSync(resourceDir)) {
@@ -42,7 +42,7 @@ exports.handler = async (event, context) => {
       const login = `/bin/nctl login --url https://nirmata.io --userid ${user} --token ${token}`;
       const loginresults = execSync(login);
 
-      const scan = `/bin/nctl scan json -p /policies/ -r /tmp/resources/${filedate}-resource.yaml -o json --report-sourceid=${filedate} --publish`;
+      const scan = `/bin/nctl scan json -p /policies/ -r /tmp/resources/${filedate}-resource.yaml -o json --details --report-sourceid=${filedate} --publish`;
       const scanresults = execSync(scan);
 
       if (debugEnabled) {
@@ -50,19 +50,19 @@ exports.handler = async (event, context) => {
         const nonEmptyResults = Object.entries(results).filter(([_, value]) => value);
         if (nonEmptyResults.length > 0) {
           nonEmptyResults.forEach(([key, value]) => {
-            console.log(`Got ${key}: ${value.toString()}`);
+            console.log(`Debug: Got ${key}: ${value.toString()}`);
           });
         } else {
-          console.log(`All Results are empty`);
+          console.log(`Debug: All Results are empty`);
         }
       }
     } catch (err) {
-      console.log(`Got inside command try block: ${err}`);
+      console.log(`Error: inside command try block: ${err}`);
     }
 
     return;
   } catch (err) {
-    console.log(`Got inside overall try block: ${err}`);
+    console.log(`Error: inside overall try block: ${err}`);
     throw err;
   }
 };
