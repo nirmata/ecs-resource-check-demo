@@ -7,3 +7,6 @@ Demo repo which holds materials to tell a complete ECS control story:
 - [Governance at Cloud Admission](nirmata-cloud-controller/README.md) `cloud-controller`
 - [Governance of Active Catalogue](lambda/README.md) `lambda`
 - [Governance of Existing Catalogue](cicd/README.md) `cicd`
+
+
+**TODO** Add Scheduled Lambda function to do the passive catalogue scanning
