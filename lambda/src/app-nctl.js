@@ -13,14 +13,19 @@ exports.handler = async (event, context) => {
   const client = new EventBridgeClient({});
 
   try {
-    // Debug helpers
-    // console.log(`Got event: ${JSON.stringify(event)}`);
-    // console.log(`Event resources: ${JSON.stringify(event.resources)}`);
-    // console.log(`Got event payload: ${JSON.stringify(event.detail)}`);
+    // Check if process.env.DEBUG is enabled
+    const debugEnabled = process.env.DEBUG === "enabled";
+
+    if (debugEnabled) {
+      console.log(`Got event: ${JSON.stringify(event)}`);
+      console.log(`Event resources: ${JSON.stringify(event.resources)}`);
+      console.log(`Got event payload: ${JSON.stringify(event.detail)}`);
+    }
 
     const resourceYAML = YAML.dump(event);
-    // Debug helpers
-    console.log(`Resource YAML: ${resourceYAML}`);
+    if (debugEnabled) {
+      console.log(`Resource YAML:\n ${resourceYAML}`);
+    }
 
     if (!fs.existsSync(resourceDir)) {
       fs.mkdirSync(resourceDir);
@@ -40,14 +45,19 @@ exports.handler = async (event, context) => {
       const scan = `/bin/nctl scan json -p /policies/ -r /tmp/resources/${filedate}-resource.yaml -o json --report-sourceid=${filedate} --publish`;
       const scanresults = execSync(scan);
 
-      // Debug helpers
-      // if (results) {
-      //   console.log(`Got nctl results: ${results.toString()}`);
-      // } else {
-      //   console.log(`Results are empty`);
-      // }
+      if (debugEnabled) {
+        const results = { scanresults, loginresults, dateresults };
+        const nonEmptyResults = Object.entries(results).filter(([_, value]) => value);
+        if (nonEmptyResults.length > 0) {
+          nonEmptyResults.forEach(([key, value]) => {
+            console.log(`Got ${key}: ${value.toString()}`);
+          });
+        } else {
+          console.log(`All Results are empty`);
+        }
+      }
     } catch (err) {
-      console.log(`Got nctl error: ${err}`);
+      console.log(`Got error: ${err}`);
     }
 
     return;
