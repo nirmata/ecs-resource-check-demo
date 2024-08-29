@@ -74,8 +74,9 @@ aws ecs create-cluster --cluster-name TEST
 
 The output should be similar to the following:
 ```yaml
-An error occurred (406) when calling the CreateCluster operation: ecs-cluster.check-tags TEST: -> A 'group' tag is required
--> all[0].check.data.(tags[?key=='group'] || `[]`).(length(@) > `0`): Invalid value: false: Expected value: true
+An error occurred (406) when calling the CreateCluster operation: validate-ecs-container-insights-enabled.validate-ecs-container-insights-enabled TEST: -> From NCC - ECS container insights must be enabled on clusters
+ -> all[0].check.data.(settings[?name=='containerInsights']): Invalid value: "null": value is null; validate-group-tags.validate-group-tags TEST: -> From NCC - A 'group' tag is required when creating an ECS cluster
+ -> all[0].check.data.(tags[?key=='group'] || `[]`).(length(@) > `0`): Invalid value: false: Expected value: true
 ```
 
 As expected, the request is blocked by the cloud admission controller because the `group` tag is missing.
