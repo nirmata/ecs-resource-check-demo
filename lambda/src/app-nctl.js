@@ -57,12 +57,12 @@ exports.handler = async (event, context) => {
         }
       }
     } catch (err) {
-      console.log(`Got error: ${err}`);
+      console.log(`Got inside command try block: ${err}`);
     }
 
     return;
   } catch (err) {
-    console.error(err);
+    console.log(`Got inside overall try block: ${err}`);
     throw err;
   }
 };
