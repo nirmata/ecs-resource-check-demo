@@ -1,4 +1,4 @@
-# ecs-resource-check-demo
+# Using Lambda to scan in-flight resources
 
 ![Lambda Flow](Lambda.png)
 
@@ -26,3 +26,7 @@ After you have modified policies and built & pushed a new docker image, you need
 9. If you want to test a `task` simply click `create` and follow the prompts
     - Deploy a task
 10. Go to Nirmata.io and visit the Policy Reports under `ECS Best Practices`
+
+## Using Lambda to do periodic scanning of resources
+
+The same function can be used in combination with [EventBridge Scheduler](https://docs.aws.amazon.com/lambda/latest/dg/with-eventbridge-scheduler.html) which will publish its reports to NPM.
