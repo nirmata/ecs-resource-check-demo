@@ -127,12 +127,13 @@ The output should be similar to the following:
         ],
         "capacityProviders": [],
         "defaultCapacityProviderStrategy": []
+    }
 }
 ```
 
 As expected, the request is allowed by the cloud admission controller because the `group` tag is present and `containerInsights` have been enabled.
 
-11. Delete the cluster:
+1.  Delete the cluster:
 ```bash
 aws ecs delete-cluster --cluster TEST
 ```
@@ -158,6 +159,7 @@ The output should be similar to the following:
        ],
        "capacityProviders": [],
        "defaultCapacityProviderStrategy": []
+    }
 }
 ```
 
