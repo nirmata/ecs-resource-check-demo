@@ -1,3 +1,4 @@
+
 apiVersion: nirmata.io/v1alpha1
 kind: ImageVerificationPolicy
 metadata:
@@ -9,43 +10,43 @@ spec:
         any:
           - (length(containerDefinitions) > `0`): true
       context:
-        - name: tlscerts
-          apiCall:
-            urlPath: "/api/v1/namespaces/kyverno-notation-aws/secrets/svc.kyverno-notation-aws.svc.tls-pair"
-            jmesPath: 'base64_decode( data."tls.crt" )'
+      - name: tlscerts
+        apiCall:
+          urlPath: "/api/v1/namespaces/kyverno-notation-aws/secrets/svc.kyverno-notation-aws.svc.tls-pair"
+          jmesPath: "base64_decode( data.\"tls.crt\" )"
       imageExtractors:
         - name: test
           path: /containerDefinitions/*/image/
       verify:
-        - imageReferences: "*"
-          externalService:
-            - apiCall:
-                method: POST
-                data:
-                  - key: images
-                    value: "{{images}}"
-                  - key: imageReferences
-                    value:
-                      - "844333597536.dkr.ecr.us-west-2.amazonaws.com*"
-                  - key: trustPolicy
-                    value: "tp-test-notation"
-                  - key: attestations
-                    value:
-                      - imageReference: "*"
-                        type:
-                          - name: sbom/example
-                            conditions:
-                              all:
-                                - key: \{{creationInfo.licenseListVersion}}
-                                  operator: Equals
-                                  value: "3.17"
-                                  message: invalid license version
-                service:
-                  url: https://svc.kyverno-notation-aws/checkimages
-                  caBundle: "{{ tlscerts }}"
-              conditions:
-                - all:
-                    - key: "{{ verified }}"
+      - imageReferences: "*"
+        externalService:
+        - apiCall:
+            method: POST
+            data:
+            - key: images
+              value: "{{images}}"
+            - key: imageReferences
+              value:
+              - "844333597536.dkr.ecr.us-west-2.amazonaws.com*"
+            - key: trustPolicy
+              value: "tp-test-notation"
+            - key: attestations
+              value:
+              - imageReference: "*"
+                type:
+                - name: sbom/example
+                  conditions:
+                    all:
+                    - key: \{{creationInfo.licenseListVersion}}
                       operator: Equals
-                      value: true
-                      message: aws signer verification failed
+                      value: "3.17"
+                      message: NCC - invalid license version
+            service:
+              url: https://svc.kyverno-notation-aws/checkimages
+              caBundle: '{{ tlscerts }}'
+          conditions:
+          - all:
+            - key: "{{ verified }}"
+              operator: Equals
+              value: true
+              message: NCC - aws signer verification failed
