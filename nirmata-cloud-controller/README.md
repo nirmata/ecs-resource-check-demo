@@ -15,7 +15,6 @@ kind create cluster
 
 2. Install the Policy CRDs:
 Two policy types are currently supported: Image Verification and Kyverno JSON policies to install them run the following commands:
-
 ```bash
 kubectl apply -f nirmata-imageverfication-crd.yaml
 kubectl apply -f nirmata-kyverno-json-crd.yaml
@@ -36,7 +35,6 @@ aws configure sso
 ```
 
 If it is already configured, you can run the following command to log in and obtain temporary credentials for using AWS CLI with SSO:
-
 ```bash
 aws sso login
  ```
@@ -48,13 +46,11 @@ export HTTPS_PROXY=http://localhost:8443
 
 6. The cert-manager will automatically create a secret with the CA certificate and key. You
 can use the following command to get the CA certificate:
-
 ```bash
 kubectl get secrets -n nirmata cloud-admission-controller-service.nirmata.svc.tls-ca -o jsonpath="{.data.tls\.crt}" | base64 --decode > ca.crt
 ```
 
 Then, set the `AWS_CA_BUNDLE` environment variable to point to the CA certificate:
-
 ```bash
 export AWS_CA_BUNDLE=ca.crt
 ```
@@ -77,7 +73,6 @@ aws ecs create-cluster --cluster-name TEST
 ```
 
 The output should be similar to the following:
-
 ```yaml
 An error occurred (406) when calling the CreateCluster operation: ecs-cluster.check-tags TEST: -> A 'group' tag is required
 -> all[0].check.data.(tags[?key=='group'] || `[]`).(length(@) > `0`): Invalid value: false: Expected value: true
@@ -100,8 +95,8 @@ Let us add it in:
 ```bash
 aws ecs create-cluster --cluster-name TEST --tags key=group,value=test key=owner,value=test --settings name=containerInsights,value=enabled
 ```
-The output should be similar to the following:
 
+The output should be similar to the following:
 ```json
 {
     "cluster": {
@@ -142,7 +137,6 @@ aws ecs delete-cluster --cluster TEST
 ```
 
 The output should be similar to the following:
-
 ```json
 {
    "cluster": {
