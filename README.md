@@ -3,7 +3,7 @@
 ![ECS Full Nirmata Flow](ECSFlows.png)
 
 Demo repo which holds materials to tell a complete ECS control story:
-- [protection in repository](terraform/README.md) `terraform`
-- [protection in cloud](nirmata-cloud-controller/README.md) `cloud-controller`
-- [protection of existing resources](lambda/README.md) `lambda`
-- [periodic scan of running ECS resources](cicd/README.md)
+- [Governance in Repository](terraform/README.md) `terraform`
+- [Governance at Cloud Admission](nirmata-cloud-controller/README.md) `cloud-controller`
+- [Governance of Active Catalogue](lambda/README.md) `lambda`
+- [Governance of Existing Catalogue](cicd/README.md)
