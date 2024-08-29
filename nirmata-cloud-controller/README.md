@@ -29,7 +29,7 @@ helm install cloud-admission-controller ./charts/admission-controller --create-n
 kubectl port-forward -n nirmata svc/cloud-admission-controller-service 8443:8443
 ```
 
-4. In another terminal, setup and configure SSO for the AWS CLI:
+4. In another terminal, setup and configure SSO for the AWS CLI. **NOTE** Not every organization uses SSO, skip this if you already have authentication setup:
 ```bash
 aws configure sso
 ```
