@@ -29,7 +29,7 @@ exports.handler = async (event, context) => {
       fs.mkdirSync(resourceDir);
     }
 
-    const timestamp = Date().now();
+    const timestamp = new Date().now();
     const filename = `/tmp/resources/resource-${timestamp}.yaml`;
     fs.writeFileSync(filename, resourceYAML, "utf8");
 
