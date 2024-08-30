@@ -18,8 +18,6 @@ exports.handler = async (event, context) => {
 
     if (debugEnabled) {
       console.log(`Debug: Event --- \n ${JSON.stringify(event)}`);
-      console.log(`Debug: Event Resources --- \n ${JSON.stringify(event.resources)}`);
-      console.log(`Debug: Event Payload --- \n ${JSON.stringify(event.detail)}`);
     }
 
     const resourceYAML = YAML.dump(event);
@@ -42,7 +40,7 @@ exports.handler = async (event, context) => {
       const login = `/bin/nctl login --url https://nirmata.io --userid ${user} --token ${token}`;
       const loginresults = execSync(login);
 
-      const scan = `/bin/nctl scan json -p /policies/ -r /tmp/resources/${filedate}-resource.yaml -o json --details --report-sourceid=${filedate} --publish`;
+      const scan = `/bin/nctl scan json -p /policies/ -r /tmp/resources/${filedate}-resource.yaml -o json --report-sourceid=${filedate} --publish`;
       const scanresults = execSync(scan);
 
       if (debugEnabled) {
@@ -59,7 +57,6 @@ exports.handler = async (event, context) => {
     } catch (err) {
       console.log(`Error: inside command try block: ${err}`);
     }
-
     return;
   } catch (err) {
     console.log(`Error: inside overall try block: ${err}`);
