@@ -29,22 +29,20 @@ exports.handler = async (event, context) => {
       fs.mkdirSync(resourceDir);
     }
 
-    fs.writeFileSync("/tmp/resources/resource.yaml", resourceYAML, "utf8");
+    const timestamp = Date().now();
+    const filename = `/tmp/resources/resource-${timestamp}.yaml`;
+    fs.writeFileSync(filename, resourceYAML, "utf8");
 
     // Run a CLI command to verify the task
     try {
-      const filedate = Date.now();
-      const date = `mv /tmp/resources/resource.yaml /tmp/resources/${filedate}-resource.yaml`;
-      const dateresults = execSync(date);
-
       const login = `/bin/nctl login --url https://nirmata.io --userid ${user} --token ${token}`;
       const loginresults = execSync(login);
 
-      const scan = `/bin/nctl scan json -p /policies/ -r /tmp/resources/${filedate}-resource.yaml -o json --report-sourceid=${filedate} --publish`;
+      const scan = `/bin/nctl scan json -p /policies/ -r /tmp/resources/${timestamp}-resource.yaml -o json --report-sourceid=${timestamp} --publish`;
       const scanresults = execSync(scan);
 
       if (debugEnabled) {
-        const results = { scanresults, loginresults, dateresults };
+        const results = { scanresults, loginresults };
         let hasResults = false;
         for (const [key, value] of Object.entries(results)) {
           if (value) {
