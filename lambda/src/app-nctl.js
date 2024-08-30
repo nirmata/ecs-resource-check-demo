@@ -38,7 +38,7 @@ exports.handler = async (event, context) => {
       const login = `/bin/nctl login --url https://nirmata.io --userid ${user} --token ${token}`;
       const loginresults = execSync(login);
 
-      const scan = `/bin/nctl scan json -p /policies/ -r /tmp/resources/${timestamp}-resource.yaml -o json --report-sourceid=${timestamp} --publish`;
+      const scan = `/bin/nctl scan json -p /policies/ -r /tmp/resources/${timestamp}-resource.yaml -o json --report-sourceid=${timestamp} --details --publish`;
       const scanresults = execSync(scan);
 
       if (debugEnabled) {
