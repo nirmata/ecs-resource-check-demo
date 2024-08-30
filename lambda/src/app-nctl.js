@@ -45,12 +45,15 @@ exports.handler = async (event, context) => {
 
       if (debugEnabled) {
         const results = { scanresults, loginresults, dateresults };
-        const nonEmptyResults = Object.entries(results).filter(([_, value]) => value);
-        if (nonEmptyResults.length > 0) {
-          nonEmptyResults.forEach(([key, value]) => {
-            console.log(`Debug: Got ${key}: ${value.toString()}`);
-          });
-        } else {
+        let hasResults = false;
+        for (const [key, value] of Object.entries(results)) {
+          if (value) {
+            hasResults = true;
+            console.log(`Debug: Results of commands ${key}: ${value.toString()}`);
+          }
+        }
+
+        if (!hasResults) {
           console.log(`Debug: All Results are empty`);
         }
       }
