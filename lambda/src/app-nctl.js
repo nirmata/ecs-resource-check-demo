@@ -17,7 +17,7 @@ exports.handler = async (event, context) => {
     const debugEnabled = process.env.DEBUG === "enabled";
 
     if (debugEnabled) {
-      console.log(`Debug: Event --- \n ${JSON.stringify(event)}`);
+      console.log(`Debug: Event JSON --- \n ${JSON.stringify(event)}`);
     }
 
     const resourceYAML = YAML.dump(event);
@@ -29,7 +29,7 @@ exports.handler = async (event, context) => {
       fs.mkdirSync(resourceDir);
     }
 
-    const timestamp = new Date().now();
+    const timestamp = Date.now();
     const filename = `/tmp/resources/resource-${timestamp}.yaml`;
     fs.writeFileSync(filename, resourceYAML, "utf8");
 
