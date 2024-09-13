@@ -1,5 +1,10 @@
 # AWS Multi-Account Research
 
+Main sources of reference:
+- https://docs.aws.amazon.com/whitepapers/latest/organizing-your-aws-environment/organizing-your-aws-environment.html#multi-account-strategy-best-practices-and-recommendations
+- https://aws.amazon.com/blogs/containers/multi-account-infrastructure-provisioning-with-aws-control-tower-and-aws-proton/
+- https://aws.amazon.com/blogs/architecture/simplifying-multi-account-ci-cd-deployments-using-aws-proton/
+
 ```mermaid
 graph TB
     subgraph AWS Organization
