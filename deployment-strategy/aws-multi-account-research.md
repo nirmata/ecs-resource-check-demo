@@ -116,7 +116,7 @@ We will use a **multi-account strategy** to isolate the different stages of the 
 - **Management Account (Proton Management)**: This account manages AWS Proton templates (environment and service templates) and provides infrastructure for other accounts. It serves as the "source of truth" for all infrastructure.
 - **Development, Test, and Production Accounts**: These accounts host the deployed Lambda functions. Each account operates in its own sandbox, but the management account defines and provides the infrastructure.
 
-AWS Proton uses **Environment Account Connections** to allow the management account to securely deploy infrastructure in the development/test/production accounts. This ensures bi-directional secure communication without the need for complex cross-account policies【6†source】【7†source】.
+AWS Proton uses **Environment Account Connections** to allow the management account to securely deploy infrastructure in the development/test/production accounts. This ensures bi-directional secure communication without the need for complex cross-account policies【[source](https://aws.amazon.com/blogs/architecture/simplifying-multi-account-ci-cd-deployments-using-aws-proton/)】【[source](https://aws.amazon.com/blogs/containers/multi-account-infrastructure-provisioning-with-aws-control-tower-and-aws-proton/)】.
 
 ### **3. CI/CD Pipeline with AWS CodePipeline**
 **AWS CodePipeline** will manage code deployments across accounts. Code changes are automatically pushed through different stages:
@@ -124,7 +124,7 @@ AWS Proton uses **Environment Account Connections** to allow the management acco
 2. **Build (CodeBuild)**: The code is packaged and prepared for deployment.
 3. **Deploy (AWS Proton)**: AWS Proton deploys infrastructure templates that define the environment (e.g., networking, IAM policies) where the Lambda function will run.
 
-**Service templates** within Proton define the Lambda service’s deployment configurations. These templates are reused across different environments, ensuring consistency. You can integrate **AWS CodeStar Connections** (e.g., with GitHub) to trigger deployment when changes are made to the Lambda code【7†source】.
+**Service templates** within Proton define the Lambda service’s deployment configurations. These templates are reused across different environments, ensuring consistency. You can integrate **AWS CodeStar Connections** (e.g., with GitHub) to trigger deployment when changes are made to the Lambda code【[source](https://aws.amazon.com/blogs/containers/multi-account-infrastructure-provisioning-with-aws-control-tower-and-aws-proton/)】.
 
 ### **4. Step-by-Step Walkthrough**
 
@@ -137,12 +137,12 @@ AWS Proton uses **Environment Account Connections** to allow the management acco
    - For example, the environment template could include VPC, subnets, and security groups, while the service template defines the Lambda service itself.
 
 3. **Establish Environment Account Connections**:
-   - Use the **Environment Account Connections** feature in Proton to allow the management account to provision infrastructure in the development/test/production accounts. Proton takes care of cross-account permissions using IAM roles【7†source】.
+   - Use the **Environment Account Connections** feature in Proton to allow the management account to provision infrastructure in the development/test/production accounts. Proton takes care of cross-account permissions using IAM roles【[source](https://aws.amazon.com/blogs/containers/multi-account-infrastructure-provisioning-with-aws-control-tower-and-aws-proton/)】.
 
 4. **CI/CD Integration with AWS CodePipeline**:
    - Define a CodePipeline that pushes Lambda functions through different environments:
      - In the **development account**, functions are deployed and tested automatically.
-     - After passing tests, the pipeline pushes the function to **test**, and then **production**, using AWS Proton templates for infrastructure provisioning【6†source】.
+     - After passing tests, the pipeline pushes the function to **test**, and then **production**, using AWS Proton templates for infrastructure provisioning【[source](https://aws.amazon.com/blogs/architecture/simplifying-multi-account-ci-cd-deployments-using-aws-proton/)】.
 
 5. **Secure the Multi-Account Environment with SCPs**:
    - Use **Service Control Policies (SCPs)** to enforce organizational guardrails. For example, the management account may be allowed to deploy infrastructure in development and production accounts, but development accounts are prevented from making changes directly.
