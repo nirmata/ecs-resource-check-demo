@@ -9,4 +9,4 @@ Demo repo which holds materials to tell a complete ECS control story:
 - [Governance of Existing Catalogue](cicd/README.md) `cicd`
 
 
-**TODO** Add Scheduled Lambda function to do the passive catalogue scanning
+**TODO** Add Scheduled Lambda function to do the passive catalog scanning
