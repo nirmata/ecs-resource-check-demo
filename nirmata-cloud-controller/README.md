@@ -8,7 +8,7 @@ The cloud admission controller is a custom proxy server that intercepts and vali
 
 ## Installation
 
-Using the helm chart, you can install the cloud admission controller in your Kubernetes cluster. The helm chart provides a convenient way to deploy the cloud admission controller with default configurations.
+You can install the cloud admission controller in your Kubernetes cluster using the helm chart. The helm chart provides a convenient way to deploy the cloud admission controller with default configurations.
 
 1. Create a Kind Kubernetes cluster using the following command:
 ```bash
@@ -31,7 +31,7 @@ helm install cloud-admission-controller ./charts/admission-controller --create-n
 kubectl port-forward -n nirmata svc/cloud-admission-controller-service 8443:8443
 ```
 
-4. In another terminal, setup and configure SSO for the AWS CLI. **NOTE** Not every organization uses SSO, skip this if you already have authentication setup:
+4. Set up and configure SSO for the AWS CLI in another terminal. **NOTE** Not every organization uses SSO, skip this if you already have authentication setup:
 ```bash
 aws configure sso
 ```
@@ -81,7 +81,7 @@ An error occurred (406) when calling the CreateCluster operation: validate-ecs-c
  -> all[0].check.data.(tags[?key=='group'] || `[]`).(length(@) > `0`): Invalid value: false: Expected value: true
 ```
 
-As expected, the request is blocked by the cloud admission controller because the `group` tag is missing.
+As expected, the cloud admission controller blocks the request because the `group` tag is missing.
 
 10. Use the AWS CLI to create a cluster with the `group` tag:
 ```bash
@@ -96,7 +96,7 @@ An error occurred (406) when calling the CreateCluster operation: validate-ecs-c
 
 Let us add it in:
 ```bash
-aws ecs create-cluster --cluster-name TEST --tags key=group,value=test key=owner,value=test --settings name=containerInsights,value=enabled
+aws ecs create-cluster --cluster-name TEST --tags key=group,value=test key=owner,value=test --settings name=containerInsights,value=enabled --no-cli-pager
 ```
 
 The output should be similar to the following:
@@ -133,11 +133,11 @@ The output should be similar to the following:
 }
 ```
 
-As expected, the request is allowed by the cloud admission controller because the `group` tag is present and `containerInsights` have been enabled.
+As expected, the cloud admission controller allows the request because the `group` tag is present and `containerInsights` has been enabled.
 
 1.  Delete the cluster:
 ```bash
-aws ecs delete-cluster --cluster TEST
+aws ecs delete-cluster --cluster TEST --no-cli-pager
 ```
 
 The output should be similar to the following:
@@ -167,9 +167,9 @@ The output should be similar to the following:
 
 ## Image Verification
 
-To test Image Verification you follow the previous steps with the following changes:
+To test Image Verification, you follow the previous steps with the following changes:
 
-1. You can use the following command to test (note that a setup is required prior to this working https://github.com/nirmata/kyverno-notation-aws?tab=readme-ov-file#kyverno-notation-aws some modifications to your policy will be required):
+1. You can use the following command to test (note that a setup is required before this working https://github.com/nirmata/kyverno-notation-aws?tab=readme-ov-file#kyverno-notation-aws some modifications to your policy will be required):
 ```bash
 aws ecs register-task-definition --cli-input-json file://nirmata-cloud-controller/image-verification/aws-signer/bad-task.json
 ```
