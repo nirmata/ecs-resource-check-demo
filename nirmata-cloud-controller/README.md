@@ -1,3 +1,5 @@
+# **TECH PREVIEW ONLY**
+
 # Cloud Admission Controller
 
 The cloud admission controller is a custom proxy server that intercepts and validates incoming requests to cloud services. It acts as a gatekeeper, enforcing specific policies and rules before allowing the requests to reach the cloud service provider.
